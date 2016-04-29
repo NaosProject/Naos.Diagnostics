@@ -21,11 +21,13 @@ namespace Naos.Diagnostics.Domain.Test
 
             // act
             var details = MachineDetails.Create();
+            var availableMemory = MachineDetails.GetAvailablePhysicalMemoryInGb();
 
             // assert
             details.Should().NotBeNull();
             details.OperatingSystem.Should().NotBeNull();
             details.Frameworks.Should().NotBeNull().And.ContainSingle();
+            availableMemory.Should().BeLessThan(details.TotalPhysicalMemoryInGb);
         }
     }
 }

@@ -19,6 +19,18 @@ namespace Naos.Diagnostics.Domain
         private const decimal DivideByToGetGb = 1024m / 1024m / 1024m;
 
         /// <summary>
+        /// Interrogates machine for available physical memory in gigabytes.
+        /// </summary>
+        /// <returns>Number of gigabytes of available physical memory.</returns>
+        public static decimal GetAvailablePhysicalMemoryInGb()
+        {
+            // this is only in VisualBasic...
+            var computerInfo = new ComputerInfo();
+
+            return computerInfo.AvailablePhysicalMemory / DivideByToGetGb;
+        }
+
+        /// <summary>
         /// Creates a new <see cref="MachineDetails"/> from executing context.
         /// </summary>
         /// <returns>New <see cref="MachineDetails"/>.</returns>
@@ -39,7 +51,6 @@ namespace Naos.Diagnostics.Domain
                 ProcessorCount = Environment.ProcessorCount,
                 Frameworks = frameworks,
                 TotalPhysicalMemoryInGb = computerInfo.TotalPhysicalMemory / DivideByToGetGb,
-                AvailablePhysicalMemoryInGb = computerInfo.AvailablePhysicalMemory / DivideByToGetGb
             };
 
             return report;
@@ -74,10 +85,5 @@ namespace Naos.Diagnostics.Domain
         /// Gets or sets the total physical memory (in gigabytes).
         /// </summary>
         public decimal TotalPhysicalMemoryInGb { get; set; }
-
-        /// <summary>
-        /// Gets or sets the available physical memory (in gigabytes).
-        /// </summary>
-        public decimal AvailablePhysicalMemoryInGb { get; set; }
     }
 }
