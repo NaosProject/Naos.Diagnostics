@@ -29,7 +29,9 @@ namespace Naos.Diagnostics.Domain
             if (useAssemblyIfAlreadyInAppDomain)
             {
                 assembly =
-                    AppDomain.CurrentDomain.GetAssemblies().Where(_ => !_.IsDynamic).SingleOrDefault(_ => _.CodeBase == new Uri(assemblyFilePath).ToString());
+                    AppDomain.CurrentDomain.GetAssemblies()
+                        .Where(_ => !_.IsDynamic)
+                        .SingleOrDefault(_ => _.CodeBase.ToLowerInvariant() == new Uri(assemblyFilePath).ToString().ToLowerInvariant());
             }
 
             if (assembly == null)
