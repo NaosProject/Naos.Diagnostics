@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoFakeItEasyBootstrapper.cs" />
+    <Compile Include="AssemblyDetailsTest.cs" />
     <Compile Include="MachineDetailsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -8,6 +8,7 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Reflection;
 
     /// <summary>
@@ -19,11 +20,24 @@ namespace Naos.Diagnostics.Domain
         /// Reads the assembly from file path to create a <see cref="AssemblyDetails"/>.
         /// </summary>
         /// <param name="assemblyFilePath">The file path the assembly is at.</param>
+        /// <param name="useAssemblyIfAlreadyInAppDomain">If the assembly file is already loaded in the AppDomain will use the existing Assembly. Default is true, false will force the file to be loaded...</param>
         /// <returns>Details about an assembly.</returns>
-        public static AssemblyDetails CreateFromFile(string assemblyFilePath)
+        public static AssemblyDetails CreateFromFile(string assemblyFilePath, bool useAssemblyIfAlreadyInAppDomain = true)
         {
-            var asm = Assembly.LoadFile(assemblyFilePath);
-            return CreateFromAssembly(asm);
+            Assembly assembly = null;
+
+            if (useAssemblyIfAlreadyInAppDomain)
+            {
+                assembly =
+                    AppDomain.CurrentDomain.GetAssemblies().Where(_ => !_.IsDynamic).SingleOrDefault(_ => _.CodeBase == new Uri(assemblyFilePath).ToString());
+            }
+
+            if (assembly == null)
+            {
+                assembly = Assembly.LoadFile(assemblyFilePath);
+            }
+
+            return CreateFromAssembly(assembly);
         }
 
         /// <summary>
