@@ -41,7 +41,7 @@ namespace Naos.Diagnostics.Domain
 
             var operatingSystemDetails = OperatingSystemDetails.Create();
 
-            var frameworks = new[] { new FrameworkDetails { Name = FrameworkDetails.ClrFrameworkName, Version = Environment.Version } };
+            var frameworks = new[] { new FrameworkDetails { Name = FrameworkDetails.ClrFrameworkName, Version = Environment.Version.ToString() } };
 
             var report = new MachineDetails
             {

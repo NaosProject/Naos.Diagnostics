@@ -31,6 +31,6 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets or sets the version of the framework.
         /// </summary>
-        public Version Version { get; set; }
+        public string Version { get; set; }
     }
 }

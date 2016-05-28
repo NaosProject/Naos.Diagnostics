@@ -54,7 +54,7 @@ namespace Naos.Diagnostics.Domain
             var asmName = assembly.GetName();
 
             var frameworkVersionNumber = assembly.ImageRuntimeVersion.Substring(1, 3);
-            var framework = new FrameworkDetails { Name = FrameworkDetails.DotNetFrameworkName, Version = Version.Parse(frameworkVersionNumber) };
+            var framework = new FrameworkDetails { Name = FrameworkDetails.DotNetFrameworkName, Version = frameworkVersionNumber };
 
             var version = asmName.Version;
             var name = asmName.Name;
