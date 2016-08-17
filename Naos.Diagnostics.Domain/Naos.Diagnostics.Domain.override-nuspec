@@ -1,0 +1,6 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <description>Basic representation of diagnostic information as well as creation methods to build the objects.  Includes support for getting Operating System details, CLR version, Assembly File information, Machine details, etc.</description>
+  </metadata>
+</package>

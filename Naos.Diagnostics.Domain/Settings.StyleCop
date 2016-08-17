@@ -9,6 +9,7 @@
       <Value>AppVeyor</Value>
       <Value>Aws</Value>
       <Value>arcology</Value>
+      <Value>dns</Value>
       <Value>bool</Value>
       <Value>nullable</Value>
       <Value>pluralization</Value>
