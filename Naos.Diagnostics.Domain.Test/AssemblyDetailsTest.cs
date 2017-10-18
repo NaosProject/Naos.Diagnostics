@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyDetailsTest.cs" company="Naos">
-//   Copyright 2015 Naos
+//    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ namespace Naos.Diagnostics.Domain.Test
 
     using Xunit;
 
-    public class AssemblyDetailsTest
+    public static class AssemblyDetailsTest
     {
         [Fact]
         public static void CreateFromFile_VerifyWillUseAlreadyLoadedIfSpecified()

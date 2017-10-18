@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="OperatingSystemDetails.cs" company="Naos">
-//   Copyright 2015 Naos
+//    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -9,6 +9,8 @@ namespace Naos.Diagnostics.Domain
     using System;
 
     using Microsoft.VisualBasic.Devices;
+
+    using static System.FormattableString;
 
     /// <summary>
     /// Model to hold details about an operating system.
@@ -49,7 +51,7 @@ namespace Naos.Diagnostics.Domain
         /// <inheritdoc />
         public override string ToString()
         {
-            var ret = string.Format("OS; Name: {0}, Version: {1}, Service Pack: {2}", this.Name, this.Version, this.ServicePack);
+            var ret = Invariant($"OS; Name: {this.Name}, Version: {this.Version}, Service Pack: {this.ServicePack}");
             return ret;
         }
     }

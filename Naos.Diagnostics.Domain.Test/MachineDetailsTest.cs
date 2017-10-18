@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MachineDetailsTest.cs" company="Naos">
-//   Copyright 2015 Naos
+//    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ namespace Naos.Diagnostics.Domain.Test
 
     using Xunit;
 
-    public class MachineDetailsTest
+    public static class MachineDetailsTest
     {
         [Fact]
         public static void TestCreate()

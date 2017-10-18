@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="AssemblyDetails.cs" company="Naos">
-//   Copyright 2015 Naos
+//    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -10,6 +10,8 @@ namespace Naos.Diagnostics.Domain
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+
+    using Spritely.Recipes;
 
     /// <summary>
     /// Model that holds details about an assembly.
@@ -22,8 +24,11 @@ namespace Naos.Diagnostics.Domain
         /// <param name="assemblyFilePath">The file path the assembly is at.</param>
         /// <param name="useAssemblyIfAlreadyInAppDomain">If the assembly file is already loaded in the AppDomain will use the existing Assembly. Default is true, false will force the file to be loaded...</param>
         /// <returns>Details about an assembly.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "Need to be able to do this from a file also.")]
         public static AssemblyDetails CreateFromFile(string assemblyFilePath, bool useAssemblyIfAlreadyInAppDomain = true)
         {
+            new { assemblyFilePath }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+
             Assembly assembly = null;
 
             if (useAssemblyIfAlreadyInAppDomain)
@@ -31,7 +36,7 @@ namespace Naos.Diagnostics.Domain
                 assembly =
                     AppDomain.CurrentDomain.GetAssemblies()
                         .Where(_ => !_.IsDynamic)
-                        .SingleOrDefault(_ => _.CodeBase.ToLowerInvariant() == new Uri(assemblyFilePath).ToString().ToLowerInvariant());
+                        .SingleOrDefault(_ => _.CodeBase.ToUpperInvariant() == new Uri(assemblyFilePath).ToString().ToUpperInvariant());
             }
 
             if (assembly == null)
@@ -49,6 +54,8 @@ namespace Naos.Diagnostics.Domain
         /// <returns>Details about an assembly.</returns>
         public static AssemblyDetails CreateFromAssembly(Assembly assembly)
         {
+            new { assembly }.Must().NotBeNull().OrThrowFirstFailure();
+
             var codeBasesToIgnore = new List<string>(new[] { "Microsoft.GeneratedCode", "Anonymously Hosted DynamicMethods Assembly" });
 
             var asmName = assembly.GetName();

@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="MachineDetails.cs" company="Naos">
-//   Copyright 2015 Naos
+//    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -22,6 +22,7 @@ namespace Naos.Diagnostics.Domain
         /// Interrogates machine for available physical memory in gigabytes.
         /// </summary>
         /// <returns>Number of gigabytes of available physical memory.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Spelling/name is correct.")]
         public static decimal GetAvailablePhysicalMemoryInGb()
         {
             // this is only in VisualBasic...
@@ -83,7 +84,7 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets or sets the frameworks installed on machine.
         /// </summary>
-        public IReadOnlyCollection<FrameworkDetails> Frameworks { get; set; } 
+        public IReadOnlyCollection<FrameworkDetails> Frameworks { get; set; }
 
         /// <summary>
         /// Gets or sets the operation system of the machine.
@@ -93,6 +94,7 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets or sets the total physical memory (in gigabytes).
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Spelling/name is correct.")]
         public decimal TotalPhysicalMemoryInGb { get; set; }
     }
 }
