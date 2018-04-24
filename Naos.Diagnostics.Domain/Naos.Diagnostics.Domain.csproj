@@ -54,6 +54,7 @@
     <Compile Include="AssemblyDetails.cs" />
     <Compile Include="FrameworkDetails.cs" />
     <Compile Include="MachineDetails.cs" />
+    <Compile Include="ProcessHelpers.cs" />
     <Compile Include="MachineName.cs" />
     <Compile Include="MachineNameKind.cs" />
     <Compile Include="SimulatedFailureException.cs" />
@@ -63,7 +64,8 @@
   <ItemGroup>
     <AdditionalFiles Include=".analyzers\stylecop.json" />
     <None Include=".analyzers\release.ruleset" />
-    <None Include="Naos.Diagnostics.Recipes.MachineName.recipe-nuspec" />
+    <None Include="Naos.Diagnostics.Recipes.Process.recipe-nuspec" />
+    <None Include="Naos.Diagnostics.Recipes.Machine.recipe-nuspec" />
     <None Include="Naos.Diagnostics.Domain.override-nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

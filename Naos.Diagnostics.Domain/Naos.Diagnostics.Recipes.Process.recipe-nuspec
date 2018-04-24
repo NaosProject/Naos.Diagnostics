@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Naos.Diagnostics.Recipes.Process</id>
+    <description>Gathers process-related information.</description>
+    <tags>diagnostics telemetry process</tags>
+  </metadata>
+  <files>
+    <file src="ProcessHelpers.cs" target="content\net461\.recipes\Naos.Diagnostics\ProcessHelpers.cs" />
+  </files>
+</package>

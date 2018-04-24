@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Naos.Diagnostics.Recipes.MachineName</id>
-    <description>Determines the name of the running machine.</description>
+    <id>Naos.Diagnostics.Recipes.Machine</id>
+    <description>Gathers machine-related information.</description>
     <tags>diagnostics telemetry machine</tags>
   </metadata>
   <files>

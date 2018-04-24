@@ -80,6 +80,9 @@
     <Compile Include="..\Naos.Diagnostics.Domain\MachineNameKind.cs">
       <Link>.recipes\Naos.Diagnostics\MachineNameKind.cs</Link>
     </Compile>
+    <Compile Include="..\Naos.Diagnostics.Domain\ProcessHelpers.cs">
+      <Link>.recipes\Naos.Diagnostics\ProcessHelpers.cs</Link>
+    </Compile>
     <Compile Include=".recipes\OBeautifulCode.AutoFakeItEasy\AutoFakeItEasyBootstrapper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Collection\EnumerableExtensions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Enum\EnumExtensions.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="AssemblyDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MachineDetailsTest.cs" />
+    <Compile Include="ProcessHelpersTest.cs" />
     <Compile Include="MachineNameTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
