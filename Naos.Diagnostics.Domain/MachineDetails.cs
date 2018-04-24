@@ -8,6 +8,7 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using Microsoft.VisualBasic.Devices;
 
@@ -44,13 +45,9 @@ namespace Naos.Diagnostics.Domain
 
             var frameworks = new[] { new FrameworkDetails { Name = FrameworkDetails.ClrFrameworkName, Version = Environment.Version.ToString() } };
 
-            var machineName = Environment.MachineName; // this could be truncated to be compliant with old networks
-            var hostName = System.Net.Dns.GetHostName(); // this should be the full 'machine name'
-
             var report = new MachineDetails
             {
-                MachineName = machineName,
-                HostName = hostName,
+                MachineNameKindToNameMap = MachineName.GetMachineNames().ToDictionary(_ => _.Key.ToString(), _ => _.Value),
                 IsOperatingSystem64Bit = Environment.Is64BitOperatingSystem,
                 OperatingSystem = operatingSystemDetails,
                 ProcessorCount = Environment.ProcessorCount,
@@ -62,14 +59,9 @@ namespace Naos.Diagnostics.Domain
         }
 
         /// <summary>
-        /// Gets or sets the host name (System.Net.Dns.GetHostName() - should be the full 'machine name').
+        /// Gets or sets a map of the kind of machine name to the machine name.
         /// </summary>
-        public string HostName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the machine name (Environment.MachineName - could be truncated to be compliant with old networks).
-        /// </summary>
-        public string MachineName { get; set; }
+        public IReadOnlyDictionary<string, string> MachineNameKindToNameMap { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether or not the operating system is 64bit.
