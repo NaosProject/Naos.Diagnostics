@@ -6,58 +6,13 @@
 
 namespace Naos.Diagnostics.Domain
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-
-    using Microsoft.VisualBasic.Devices;
 
     /// <summary>
     /// Model to contain details about a machine.
     /// </summary>
     public class MachineDetails
     {
-        private const decimal DivideByToGetGb = 1024m / 1024m / 1024m;
-
-        /// <summary>
-        /// Interrogates machine for available physical memory in gigabytes.
-        /// </summary>
-        /// <returns>Number of gigabytes of available physical memory.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Spelling/name is correct.")]
-        public static decimal GetAvailablePhysicalMemoryInGb()
-        {
-            // this is only in VisualBasic...
-            var computerInfo = new ComputerInfo();
-
-            return computerInfo.AvailablePhysicalMemory / DivideByToGetGb;
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="MachineDetails"/> from executing context.
-        /// </summary>
-        /// <returns>New <see cref="MachineDetails"/>.</returns>
-        public static MachineDetails Create()
-        {
-            // this is only in VisualBasic...
-            var computerInfo = new ComputerInfo();
-
-            var operatingSystemDetails = OperatingSystemDetails.Create();
-
-            var frameworks = new[] { new FrameworkDetails { Name = FrameworkDetails.ClrFrameworkName, Version = Environment.Version.ToString() } };
-
-            var report = new MachineDetails
-            {
-                MachineNameKindToNameMap = MachineName.GetMachineNames().ToDictionary(_ => _.Key.ToString(), _ => _.Value),
-                IsOperatingSystem64Bit = Environment.Is64BitOperatingSystem,
-                OperatingSystem = operatingSystemDetails,
-                ProcessorCount = Environment.ProcessorCount,
-                Frameworks = frameworks,
-                TotalPhysicalMemoryInGb = computerInfo.TotalPhysicalMemory / DivideByToGetGb,
-            };
-
-            return report;
-        }
-
         /// <summary>
         /// Gets or sets a map of the kind of machine name to the machine name.
         /// </summary>
@@ -88,5 +43,11 @@ namespace Naos.Diagnostics.Domain
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Spelling/name is correct.")]
         public decimal TotalPhysicalMemoryInGb { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total virtual memory (in gigabytes).
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Spelling/name is correct.")]
+        public decimal TotalVirtualMemoryInGb { get; set; }
     }
 }

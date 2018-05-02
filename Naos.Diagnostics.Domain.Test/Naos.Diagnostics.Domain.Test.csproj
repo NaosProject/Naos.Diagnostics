@@ -39,6 +39,7 @@
     <Reference Include="FluentAssertions, Version=5.3.0.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentAssertions.5.3.0\lib\net45\FluentAssertions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="OBeautifulCode.AutoFakeItEasy, Version=1.0.97.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\OBeautifulCode.AutoFakeItEasy.1.0.97\lib\net45\OBeautifulCode.AutoFakeItEasy.dll</HintPath>
     </Reference>
@@ -74,13 +75,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Naos.Diagnostics.Domain\MachineName.cs">
+    <Compile Include="..\Naos.Diagnostics.Recipes\DomainFactory.cs">
+      <Link>.recipes\Naos.Diagnostics\DomainFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Naos.Diagnostics.Recipes\MachineMemory.cs">
+      <Link>.recipes\Naos.Diagnostics\MachineMemory.cs</Link>
+    </Compile>
+    <Compile Include="..\Naos.Diagnostics.Recipes\MachineMemoryKind.cs">
+      <Link>.recipes\Naos.Diagnostics\MachineMemoryKind.cs</Link>
+    </Compile>
+    <Compile Include="..\Naos.Diagnostics.Recipes\MachineName.cs">
       <Link>.recipes\Naos.Diagnostics\MachineName.cs</Link>
     </Compile>
-    <Compile Include="..\Naos.Diagnostics.Domain\MachineNameKind.cs">
+    <Compile Include="..\Naos.Diagnostics.Recipes\MachineNameKind.cs">
       <Link>.recipes\Naos.Diagnostics\MachineNameKind.cs</Link>
     </Compile>
-    <Compile Include="..\Naos.Diagnostics.Domain\ProcessHelpers.cs">
+    <Compile Include="..\Naos.Diagnostics.Recipes\ProcessHelpers.cs">
       <Link>.recipes\Naos.Diagnostics\ProcessHelpers.cs</Link>
     </Compile>
     <Compile Include=".recipes\OBeautifulCode.AutoFakeItEasy\AutoFakeItEasyBootstrapper.cs" />

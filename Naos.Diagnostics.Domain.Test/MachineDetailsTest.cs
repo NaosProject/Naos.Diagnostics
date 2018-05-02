@@ -26,8 +26,8 @@ namespace Naos.Diagnostics.Domain.Test
             var machineNameKinds = EnumExtensions.GetEnumValues<MachineNameKind>().Select(_ => _.ToString());
 
             // act
-            var details = MachineDetails.Create();
-            var availableMemory = MachineDetails.GetAvailablePhysicalMemoryInGb();
+            var details = DomainFactory.CreateMachineDetails();
+            var availableMemory = MachineMemory.GetMachineMemoryInGb()[MachineMemoryKind.AvailablePhysical];
 
             // assert
             details.Should().NotBeNull();

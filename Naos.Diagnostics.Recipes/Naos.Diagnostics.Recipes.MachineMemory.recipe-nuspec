@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Naos.Diagnostics.Recipes.MachineMemory</id>
+    <description>Gathers machine memory information.</description>
+    <tags>diagnostics telemetry machine memory</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.VisualBasic" targetFramework=".NETFramework4.6.1" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="MachineMemory.cs" target="content\net461\.recipes\Naos.Diagnostics\MachineMemory.cs" />
+    <file src="MachineMemoryKind.cs" target="content\net461\.recipes\Naos.Diagnostics\MachineMemoryKind.cs" />
+  </files>
+</package>

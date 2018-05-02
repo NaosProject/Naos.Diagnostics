@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>Naos.Diagnostics.Recipes.Machine</id>
-    <description>Gathers machine-related information.</description>
-    <tags>diagnostics telemetry machine</tags>
+    <id>Naos.Diagnostics.Recipes.MachineName</id>
+    <description>Gathers machine names.</description>
+    <tags>diagnostics telemetry machine name</tags>
   </metadata>
   <files>
     <file src="MachineName.cs" target="content\net461\.recipes\Naos.Diagnostics\MachineName.cs" />

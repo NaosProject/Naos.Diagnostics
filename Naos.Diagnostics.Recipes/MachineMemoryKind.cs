@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="MachineNameKind.cs" company="Naos">
+// <copyright file="MachineMemoryKind.cs" company="Naos">
 //    Copyright (c) Naos 2017. All Rights Reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
@@ -7,26 +7,31 @@
 namespace Naos.Diagnostics.Domain
 {
     /// <summary>
-    /// Specifies the kind of machine name.
+    /// Specifies the kind of machine memory.
     /// </summary>
-#if !NaosDiagnosticsDomain
+#if !NaosDiagnosticsRecipes
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
 #endif
-    internal enum MachineNameKind
+    internal enum MachineMemoryKind
     {
         /// <summary>
-        /// The NetBIOS name.
+        /// The total physical memory.
         /// </summary>
-        NetBiosName,
+        TotalPhysical,
 
         /// <summary>
-        /// The fully qualified domain name.
+        /// The total virtual memory.
         /// </summary>
-        FullyQualifiedDomainName,
+        TotalVirtual,
 
         /// <summary>
-        /// The resolved localhost name.
+        /// The available physical memory.
         /// </summary>
-        ResolvedLocalhostName,
+        AvailablePhysical,
+
+        /// <summary>
+        /// The avilable virtual memory.
+        /// </summary>
+        AvailableVirtual,
     }
 }

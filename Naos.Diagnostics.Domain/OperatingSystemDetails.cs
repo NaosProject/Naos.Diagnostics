@@ -8,8 +8,6 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
 
-    using Microsoft.VisualBasic.Devices;
-
     using static System.FormattableString;
 
     /// <summary>
@@ -17,22 +15,6 @@ namespace Naos.Diagnostics.Domain
     /// </summary>
     public class OperatingSystemDetails
     {
-        /// <summary>
-        /// Creates a new <see cref="OperatingSystemDetails"/> from executing context.
-        /// </summary>
-        /// <returns>New <see cref="OperatingSystemDetails"/>.</returns>
-        public static OperatingSystemDetails Create()
-        {
-            // this is only in VisualBasic...
-            var computerInfo = new ComputerInfo();
-            var servicePack =
-                (string.IsNullOrEmpty(Environment.OSVersion.ServicePack) ? "(No Service Packs)" : Environment.OSVersion.ServicePack).Replace(
-                    Environment.NewLine,
-                    string.Empty);
-
-            return new OperatingSystemDetails { Name = computerInfo.OSFullName, Version = Environment.OSVersion.Version, ServicePack = servicePack };
-        }
-
         /// <summary>
         /// Gets or sets the name.
         /// </summary>

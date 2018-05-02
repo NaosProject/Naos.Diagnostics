@@ -1,0 +1,20 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Naos.Diagnostics.Recipes.DomainFactory</id>
+    <description>Factory methods to build domain objects.</description>
+    <tags>diagnostics telemetry process</tags>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.VisualBasic" targetFramework=".NETFramework4.6.1" />
+    </frameworkAssemblies>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Naos.Diagnostics.Domain" version="$version$" />
+        <dependency id="Naos.Diagnostics.Recipes.MachineMemory" version="$version$" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="DomainFactory.cs" target="content\net461\.recipes\Naos.Diagnostics\DomainFactory.cs" />
+  </files>
+</package>

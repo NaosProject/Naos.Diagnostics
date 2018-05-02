@@ -6,8 +6,6 @@
 
 namespace Naos.Diagnostics.Domain
 {
-    using System;
-
     /// <summary>
     /// Model that hold details about a framework.
     /// </summary>
