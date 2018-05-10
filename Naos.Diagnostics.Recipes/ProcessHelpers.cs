@@ -8,6 +8,7 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
     using System.Diagnostics;
+    using System.Security.Principal;
 
     /// <summary>
     /// Various helper methods related to a processes.
@@ -28,6 +29,18 @@ namespace Naos.Diagnostics.Domain
         public static Process GetRunningProcess()
         {
             var result = Process.GetCurrentProcess();
+            return result;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether or not the executing process is running as administrator.
+        /// </summary>
+        /// <remarks>I'm not certain if this works on a thread that is impersonating or not.</remarks>
+        /// <returns>Value indicating whether or not the executing process is running as administrator.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
+        public static bool IsCurrentlyRunningAsAdmin()
+        {
+            var result = WindowsIdentity.GetCurrent().Owner?.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid) ?? false;
             return result;
         }
 
