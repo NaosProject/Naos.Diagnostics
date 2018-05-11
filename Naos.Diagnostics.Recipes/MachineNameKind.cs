@@ -13,7 +13,6 @@ namespace Naos.Diagnostics.Recipes
     public
 #else
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     internal
 #endif
     enum MachineNameKind
