@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Naos.Diagnostics.Domain
+namespace Naos.Diagnostics.Recipes
 {
     using System.Collections.Generic;
 
@@ -13,11 +13,14 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Uses various methods to get the memory of a machine.
     /// </summary>
-#if !NaosDiagnosticsRecipes
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+#if NaosDiagnosticsRecipes
+    public
+#else
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    internal
 #endif
-    internal static class MachineMemory
+    static class MachineMemory
     {
         private const decimal DivideByToGetGb = 1024m / 1024m / 1024m;
 
@@ -27,7 +30,6 @@ namespace Naos.Diagnostics.Domain
         /// <returns>
         /// The total memory of this machine in gigabytes.
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static IReadOnlyDictionary<MachineMemoryKind, decimal> GetMachineMemoryInGb()
         {
             // this is only in VisualBasic...

@@ -12,12 +12,34 @@ namespace Naos.Diagnostics.Domain.Test
 
     using Domain;
 
+    using FakeItEasy;
+
     using FluentAssertions;
 
     using Xunit;
 
     public static class AssemblyDetailsTest
     {
+        [Fact]
+        public static void ToString___Should_be_useful()
+        {
+            // Arrange
+            var name = A.Dummy<string>();
+            var version = new Version(1, 4);
+            var filePath = A.Dummy<string>();
+            var frameworkVersion = A.Dummy<string>();
+            var systemUnderTest = new AssemblyDetails(name, version, filePath, frameworkVersion);
+
+            // Act
+            var actualToString = systemUnderTest.ToString();
+
+            // Assert
+            actualToString.Should().Contain(name);
+            actualToString.Should().Contain(version.ToString());
+            actualToString.Should().Contain(filePath);
+            actualToString.Should().Contain(frameworkVersion);
+        }
+
         [Fact]
         public static void CreateFromFile_VerifyWillUseAlreadyLoadedIfSpecified()
         {

@@ -13,6 +13,8 @@ namespace Naos.Diagnostics.Domain
 
     using Spritely.Recipes;
 
+    using static System.FormattableString;
+
     /// <summary>
     /// Model that holds details about an assembly.
     /// </summary>
@@ -61,7 +63,6 @@ namespace Naos.Diagnostics.Domain
             var asmName = assembly.GetName();
 
             var frameworkVersionNumber = assembly.ImageRuntimeVersion.Substring(1, 3);
-            var framework = new FrameworkDetails { Name = FrameworkDetails.DotNetFrameworkName, Version = frameworkVersionNumber };
 
             var version = asmName.Version;
             var name = asmName.Name;
@@ -69,34 +70,57 @@ namespace Naos.Diagnostics.Domain
             string codeBase = codeBasesToIgnore.Contains(name) ? name : assembly.CodeBase;
 
             // strip off 'file://'
-            Uri uri;
-            var uriCodebase = Uri.TryCreate(codeBase, UriKind.Absolute, out uri);
+            var uriCodebase = Uri.TryCreate(codeBase, UriKind.Absolute, out var uri);
             if (uriCodebase)
             {
                 codeBase = uri.LocalPath;
             }
 
-            return new AssemblyDetails { Name = name, Version = version, Framework = framework, FilePath = codeBase };
+            return new AssemblyDetails(name, version, codeBase, frameworkVersionNumber);
         }
 
         /// <summary>
-        /// Gets or sets the version of the assembly.
+        /// Initializes a new instance of the <see cref="AssemblyDetails"/> class.
         /// </summary>
-        public Version Version { get; set; }
+        /// <param name="name">Name of the assembly.</param>
+        /// <param name="version">Version of the assembly.</param>
+        /// <param name="filePath">File path of the assembly observed.</param>
+        /// <param name="frameworkVersion">Framework of assembly.</param>
+        public AssemblyDetails(string name, Version version, string filePath, string frameworkVersion)
+        {
+            new { name }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+
+            this.Name = name;
+            this.Version = version;
+            this.FilePath = filePath;
+            this.FrameworkVersion = frameworkVersion;
+        }
 
         /// <summary>
-        /// Gets or sets the name of the assembly.
+        /// Gets the name of the assembly.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// Gets or sets the file path the assembly was observed at.
+        /// Gets the version of the assembly.
         /// </summary>
-        public string FilePath { get; set; }
+        public Version Version { get; private set; }
 
         /// <summary>
-        /// Gets or sets the .NET framework the assembly was build for.
+        /// Gets the file path the assembly was observed at.
         /// </summary>
-        public FrameworkDetails Framework { get; set; }
+        public string FilePath { get; private set; }
+
+        /// <summary>
+        /// Gets the .NET framework the assembly was build for.
+        /// </summary>
+        public string FrameworkVersion { get; private set; }
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            var result = Invariant($"{nameof(AssemblyDetails)} - {nameof(this.Name)}: {this.Name}; {nameof(this.Version)}: {this.Version?.ToString() ?? "<null>"}; {nameof(this.FilePath)}: {this.FilePath ?? "<null>"}; {nameof(this.FrameworkVersion)}: {this.FrameworkVersion ?? "<null>"}.");
+            return result;
+        }
     }
 }

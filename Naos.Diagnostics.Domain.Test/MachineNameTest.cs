@@ -10,7 +10,7 @@ namespace Naos.Diagnostics.Domain.Test
 
     using FluentAssertions;
 
-    using Naos.Diagnostics.Domain;
+    using Naos.Diagnostics.Recipes;
 
     using OBeautifulCode.Collection.Recipes;
     using OBeautifulCode.Enum.Recipes;

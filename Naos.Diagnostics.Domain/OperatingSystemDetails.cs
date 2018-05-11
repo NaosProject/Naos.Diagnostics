@@ -8,6 +8,8 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
 
+    using Spritely.Recipes;
+
     using static System.FormattableString;
 
     /// <summary>
@@ -16,25 +18,40 @@ namespace Naos.Diagnostics.Domain
     public class OperatingSystemDetails
     {
         /// <summary>
-        /// Gets or sets the name.
+        /// Initializes a new instance of the <see cref="OperatingSystemDetails"/> class.
         /// </summary>
-        public string Name { get; set; }
+        /// <param name="name">Name of OS.</param>
+        /// <param name="version">Version of OS.</param>
+        /// <param name="servicePack">Service pack of OS.</param>
+        public OperatingSystemDetails(string name, Version version, string servicePack)
+        {
+            new { name }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+
+            this.Name = name;
+            this.Version = version;
+            this.ServicePack = servicePack;
+        }
 
         /// <summary>
-        /// Gets or sets the version.
+        /// Gets the name.
         /// </summary>
-        public Version Version { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
-        /// Gets or sets the service pack.
+        /// Gets the version.
         /// </summary>
-        public string ServicePack { get; set; }
+        public Version Version { get; private set; }
+
+        /// <summary>
+        /// Gets the service pack.
+        /// </summary>
+        public string ServicePack { get; private set; }
 
         /// <inheritdoc />
         public override string ToString()
         {
-            var ret = Invariant($"OS; Name: {this.Name}, Version: {this.Version}, Service Pack: {this.ServicePack}");
-            return ret;
+            var result = Invariant($"OS - Name: {this.Name}; Version: {this.Version?.ToString() ?? "<null>"}; Service Pack: {this.ServicePack ?? "<null>"}.");
+            return result;
         }
     }
 }

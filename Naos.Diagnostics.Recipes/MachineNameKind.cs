@@ -4,15 +4,19 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Naos.Diagnostics.Domain
+namespace Naos.Diagnostics.Recipes
 {
     /// <summary>
     /// Specifies the kind of machine name.
     /// </summary>
-#if !NaosDiagnosticsRecipes
+#if NaosDiagnosticsRecipes
+    public
+#else
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    internal
 #endif
-    internal enum MachineNameKind
+    enum MachineNameKind
     {
         /// <summary>
         /// The NetBIOS name.

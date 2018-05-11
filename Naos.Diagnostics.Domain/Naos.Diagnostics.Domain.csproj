@@ -52,7 +52,7 @@
     <Compile Include=".recipes\Spritely.MustValidation\Rules.cs" />
     <Compile Include=".recipes\Spritely.MustValidation\ValidatedNotNullAttribute.cs" />
     <Compile Include="AssemblyDetails.cs" />
-    <Compile Include="FrameworkDetails.cs" />
+    <Compile Include="ProcessDetails.cs" />
     <Compile Include="MachineDetails.cs" />
     <Compile Include="SimulatedFailureException.cs" />
     <Compile Include="OperatingSystemDetails.cs" />

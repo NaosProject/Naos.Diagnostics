@@ -10,7 +10,7 @@ namespace Naos.Diagnostics.Domain.Test
 
     using FluentAssertions;
 
-    using Naos.Diagnostics.Domain;
+    using Naos.Diagnostics.Recipes;
 
     using Xunit;
 
@@ -34,7 +34,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = Record.Exception(() => ProcessHelpers.Name(null));
+            var actual = Record.Exception(() => ProcessHelpers.GetName(null));
 
             // assert
             actual.Should().BeOfType<ArgumentNullException>();
@@ -47,7 +47,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = ProcessHelpers.GetRunningProcess().Name();
+            var actual = ProcessHelpers.GetRunningProcess().GetName();
 
             // assert
             actual.Should().NotBeNullOrWhiteSpace();
@@ -59,7 +59,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = Record.Exception(() => ProcessHelpers.FilePath(null));
+            var actual = Record.Exception(() => ProcessHelpers.GetFilePath(null));
 
             // assert
             actual.Should().BeOfType<ArgumentNullException>();
@@ -72,7 +72,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = ProcessHelpers.GetRunningProcess().FilePath();
+            var actual = ProcessHelpers.GetRunningProcess().GetFilePath();
 
             // assert
             actual.Should().NotBeNullOrWhiteSpace();
@@ -84,7 +84,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = Record.Exception(() => ProcessHelpers.FileVersion(null));
+            var actual = Record.Exception(() => ProcessHelpers.GetFileVersion(null));
 
             // assert
             actual.Should().BeOfType<ArgumentNullException>();
@@ -97,7 +97,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = ProcessHelpers.GetRunningProcess().FileVersion();
+            var actual = ProcessHelpers.GetRunningProcess().GetFileVersion();
 
             // assert
             actual.Should().NotBeNullOrWhiteSpace();
@@ -109,7 +109,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = Record.Exception(() => ProcessHelpers.ProductVersion(null));
+            var actual = Record.Exception(() => ProcessHelpers.GetProductVersion(null));
 
             // assert
             actual.Should().BeOfType<ArgumentNullException>();
@@ -122,7 +122,7 @@ namespace Naos.Diagnostics.Domain.Test
             // arrange
 
             // act
-            var actual = ProcessHelpers.GetRunningProcess().ProductVersion();
+            var actual = ProcessHelpers.GetRunningProcess().GetProductVersion();
 
             // assert
             actual.Should().NotBeNullOrWhiteSpace();

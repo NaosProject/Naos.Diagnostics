@@ -20,15 +20,15 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>NaosDiagnosticsRecipes</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
+    <Optimize>false</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>NaosDiagnosticsRecipes</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -105,6 +105,7 @@
     <Compile Include="AssemblyDetailsTest.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MachineDetailsTest.cs" />
+    <Compile Include="ProcessDetailsTest.cs" />
     <Compile Include="ProcessHelpersTest.cs" />
     <Compile Include="MachineNameTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

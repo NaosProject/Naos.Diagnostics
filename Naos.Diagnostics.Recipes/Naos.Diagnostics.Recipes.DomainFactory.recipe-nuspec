@@ -11,6 +11,8 @@
       <group targetFramework="net461">
         <dependency id="Naos.Diagnostics.Domain" version="$version$" />
         <dependency id="Naos.Diagnostics.Recipes.MachineMemory" version="$version$" />
+        <dependency id="Naos.Diagnostics.Recipes.MachineName" version="$version$" />
+        <dependency id="Naos.Diagnostics.Recipes.Process" version="$version$" />
       </group>
     </dependencies>
   </metadata>

@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Naos.Diagnostics.Domain
+namespace Naos.Diagnostics.Recipes
 {
     using System;
     using System.Collections.Generic;
@@ -14,11 +14,14 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Uses various methods to get the name of a machine.
     /// </summary>
-#if !NaosDiagnosticsRecipes
-    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+#if NaosDiagnosticsRecipes
+    public
+#else
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    internal
 #endif
-    internal static class MachineName
+    static class MachineName
     {
         /// <summary>
         /// Gets the name of this machine, using various methods to come
@@ -27,7 +30,6 @@ namespace Naos.Diagnostics.Domain
         /// <returns>
         /// The name of this machine.
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static string GetMachineName()
         {
             var result = GetResolvedLocalhostName();
@@ -49,7 +51,6 @@ namespace Naos.Diagnostics.Domain
         /// <returns>
         /// A map of the kind of machine name to the machine name.
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static IReadOnlyDictionary<MachineNameKind, string> GetMachineNames()
         {
             var result = new Dictionary<MachineNameKind, string>
@@ -68,7 +69,6 @@ namespace Naos.Diagnostics.Domain
         /// <returns>
         /// The NetBIOS name of this local computer.
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static string GetNetBiosName()
         {
             var result = Environment.MachineName;
@@ -84,7 +84,6 @@ namespace Naos.Diagnostics.Domain
         /// <remarks>
         /// Adapted from <a href="https://stackoverflow.com/a/804719/356790" />
         /// </remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static string GetFullyQualifiedDomainName()
         {
             var result = Dns.GetHostName();
@@ -112,7 +111,6 @@ namespace Naos.Diagnostics.Domain
         /// <returns>
         /// Gets the resolved
         /// </returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "The caller will be the consumer of this recipe.")]
         public static string GetResolvedLocalhostName()
         {
             var result = Dns.GetHostEntry("localhost").HostName;
