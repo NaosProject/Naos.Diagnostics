@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Naos.Diagnostics.Recipes.PerformanceCounter</id>
+    <description>Gathers performance counter related information.</description>
+    <tags>diagnostics telemetry process perfcounter</tags>
+  </metadata>
+  <files>
+    <file src="PerformanceCounterHelpers.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterHelpers.cs" />
+  </files>
+</package>

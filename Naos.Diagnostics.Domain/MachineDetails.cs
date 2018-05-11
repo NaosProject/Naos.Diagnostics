@@ -27,6 +27,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="operatingSystemIs64Bit">A value indicating whether or not the operating system is 64bit.</param>
         /// <param name="operatingSystem">Operating system of the machine.</param>
         /// <param name="clrVersion">Common language runtime installed on machine.</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Name/spelling is correct.")]
         public MachineDetails(
             IReadOnlyDictionary<string, string> machineNameKindToNameMap,
             int processorCount,
@@ -58,6 +59,7 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets a map of the kind of memory to the value in gigabytes.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Name/spelling is correct.")]
         public IReadOnlyDictionary<string, decimal> MemoryKindToValueInGbMap { get; private set; }
 
         /// <summary>

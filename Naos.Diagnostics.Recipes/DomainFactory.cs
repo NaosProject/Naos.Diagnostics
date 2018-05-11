@@ -27,6 +27,23 @@ namespace Naos.Diagnostics.Recipes
     static class DomainFactory
     {
         /// <summary>
+        /// Samples the provided performance counter.
+        /// </summary>
+        /// <param name="description">Description to query with.</param>
+        /// <returns>Description and sample in one object.</returns>
+        public static PerformanceCounterSample Sample(this PerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            var nextValue = PerformanceCounterHelpers.SampleNextValueOnPerformanceCounter(description.CategoryName, description.CounterName, description.InstanceName);
+            var result = new PerformanceCounterSample(description, nextValue);
+            return result;
+        }
+
+        /// <summary>
         /// Creates a new <see cref="OperatingSystemDetails"/> from executing context.
         /// </summary>
         /// <returns>New <see cref="OperatingSystemDetails"/>.</returns>
@@ -87,6 +104,11 @@ namespace Naos.Diagnostics.Recipes
         /// <returns>Typed dictionary.</returns>
         public static IReadOnlyDictionary<MachineNameKind, string> GetTypedMachineNameKindToNameMap(this MachineDetails machineDetails)
         {
+            if (machineDetails == null)
+            {
+                throw new ArgumentNullException(nameof(machineDetails));
+            }
+
             var result = machineDetails.MachineNameKindToNameMap.ToDictionary(
                 k => (MachineNameKind)Enum.Parse(typeof(MachineNameKind), k.Key),
                 v => v.Value);
@@ -99,8 +121,14 @@ namespace Naos.Diagnostics.Recipes
         /// </summary>
         /// <param name="machineDetails">Machine details to use.</param>
         /// <returns>Typed dictionary.</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Name/spelling is correct.")]
         public static IReadOnlyDictionary<MachineMemoryKind, decimal> GetTypedMemoryKindToValueInGbMap(this MachineDetails machineDetails)
         {
+            if (machineDetails == null)
+            {
+                throw new ArgumentNullException(nameof(machineDetails));
+            }
+
             var result = machineDetails.MemoryKindToValueInGbMap.ToDictionary(
                 k => (MachineMemoryKind)Enum.Parse(typeof(MachineMemoryKind), k.Key),
                 v => v.Value);

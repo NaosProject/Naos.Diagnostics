@@ -51,6 +51,7 @@
     <Compile Include="MachineName.cs" />
     <Compile Include="DomainFactory.cs" />
     <Compile Include="MachineNameKind.cs" />
+    <Compile Include="PerformanceCounterHelpers.cs" />
     <Compile Include="ProcessHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,6 +61,7 @@
     <None Include="Naos.Diagnostics.Recipes.MachineMemory.recipe-nuspec" />
     <None Include="Naos.Diagnostics.Recipes.MachineName.recipe-nuspec" />
     <None Include="Naos.Diagnostics.Recipes.DomainFactory.recipe-nuspec" />
+    <None Include="Naos.Diagnostics.Recipes.PerformanceCounter.recipe-nuspec" />
     <None Include="Naos.Diagnostics.Recipes.Process.recipe-nuspec" />
     <None Include="packages.config" />
   </ItemGroup>

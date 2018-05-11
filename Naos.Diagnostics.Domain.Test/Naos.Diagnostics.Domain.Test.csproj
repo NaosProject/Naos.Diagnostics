@@ -90,6 +90,9 @@
     <Compile Include="..\Naos.Diagnostics.Recipes\MachineNameKind.cs">
       <Link>.recipes\Naos.Diagnostics\MachineNameKind.cs</Link>
     </Compile>
+    <Compile Include="..\Naos.Diagnostics.Recipes\PerformanceCounterHelpers.cs">
+      <Link>.recipes\Naos.Diagnostics\PerformanceCounterHelpers.cs</Link>
+    </Compile>
     <Compile Include="..\Naos.Diagnostics.Recipes\ProcessHelpers.cs">
       <Link>.recipes\Naos.Diagnostics\ProcessHelpers.cs</Link>
     </Compile>

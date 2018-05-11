@@ -30,6 +30,7 @@ namespace Naos.Diagnostics.Recipes
         /// <returns>
         /// The total memory of this machine in gigabytes.
         /// </returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "Gb", Justification = "Name/spelling is correct.")]
         public static IReadOnlyDictionary<MachineMemoryKind, decimal> GetMachineMemoryInGb()
         {
             // this is only in VisualBasic...

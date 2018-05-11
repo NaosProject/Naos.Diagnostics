@@ -11,6 +11,8 @@ namespace Naos.Diagnostics.Domain
     using System.Linq;
     using System.Reflection;
 
+    using OBeautifulCode.Reflection.Recipes;
+
     using Spritely.Recipes;
 
     using static System.FormattableString;
@@ -67,14 +69,7 @@ namespace Naos.Diagnostics.Domain
             var version = asmName.Version;
             var name = asmName.Name;
 
-            string codeBase = codeBasesToIgnore.Contains(name) ? name : assembly.CodeBase;
-
-            // strip off 'file://'
-            var uriCodebase = Uri.TryCreate(codeBase, UriKind.Absolute, out var uri);
-            if (uriCodebase)
-            {
-                codeBase = uri.LocalPath;
-            }
+            var codeBase = codeBasesToIgnore.Contains(name) ? name : assembly.GetCodeBaseAsPathInsteadOfUri();
 
             return new AssemblyDetails(name, version, codeBase, frameworkVersionNumber);
         }
