@@ -6,7 +6,7 @@
     <tags>diagnostics telemetry process perfcounter</tags>
   </metadata>
   <files>
-    <file src="PerformanceCounterDescription.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs" />
+    <file src="..\Naos.Diagnostics.Domain\PerformanceCounterDescription.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs" />
     <file src="PerformanceCounterHelpers.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterHelpers.cs" />
     <file src="PerformanceCounterLibrary.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterLibrary.cs" />
   </files>
