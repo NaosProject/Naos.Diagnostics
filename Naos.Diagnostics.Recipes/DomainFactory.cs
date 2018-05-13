@@ -38,8 +38,7 @@ namespace Naos.Diagnostics.Recipes
                 throw new ArgumentNullException(nameof(description));
             }
 
-            var nextValue = PerformanceCounterHelpers.SampleNextValueOnPerformanceCounter(description.CategoryName, description.CounterName, description.InstanceName);
-            var result = new PerformanceCounterSample(description, nextValue);
+            var result = description.ToRecipe().Sample().ToModel();
             return result;
         }
 
@@ -134,6 +133,130 @@ namespace Naos.Diagnostics.Recipes
                 v => v.Value);
 
             return result;
+        }
+
+        /// <summary>
+        /// Converts from model to recipe.
+        /// </summary>
+        /// <param name="description">Model description.</param>
+        /// <returns>Recipe description.</returns>
+        public static RecipePerformanceCounterDescription ToRecipe(this PerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            var result = new RecipePerformanceCounterDescription(description.CategoryName, description.CounterName, description.InstanceName, description.ExpectedMinValue, description.ExpectedMaxValue);
+            return result;
+        }
+
+        /// <summary>
+        /// Converts from model to recipe.
+        /// </summary>
+        /// <param name="description">Model description.</param>
+        /// <returns>Recipe description.</returns>
+        public static RecipePerformanceCounterDescription FromModel(this PerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            return description.ToRecipe();
+        }
+
+        /// <summary>
+        /// Converts from recipe to model.
+        /// </summary>
+        /// <param name="description">Recipe description.</param>
+        /// <returns>Model description.</returns>
+        public static PerformanceCounterDescription ToModel(this RecipePerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            var result = new PerformanceCounterDescription(description.CategoryName, description.CounterName, description.InstanceName, description.ExpectedMinValue, description.ExpectedMaxValue);
+            return result;
+        }
+
+        /// <summary>
+        /// Converts from recipe to model.
+        /// </summary>
+        /// <param name="description">Recipe description.</param>
+        /// <returns>Model description.</returns>
+        public static PerformanceCounterDescription FromRecipe(this RecipePerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            return description.ToModel();
+        }
+
+        /// <summary>
+        /// Converts from model to recipe.
+        /// </summary>
+        /// <param name="sample">Model sample.</param>
+        /// <returns>Recipe description.</returns>
+        public static RecipePerformanceCounterSample ToRecipe(this PerformanceCounterSample sample)
+        {
+            if (sample == null)
+            {
+                throw new ArgumentNullException(nameof(sample));
+            }
+
+            var result = new RecipePerformanceCounterSample(sample.Description.ToRecipe(), sample.Value);
+            return result;
+        }
+
+        /// <summary>
+        /// Converts from model to recipe.
+        /// </summary>
+        /// <param name="sample">Model sample.</param>
+        /// <returns>Recipe description.</returns>
+        public static RecipePerformanceCounterSample FromModel(this PerformanceCounterSample sample)
+        {
+            if (sample == null)
+            {
+                throw new ArgumentNullException(nameof(sample));
+            }
+
+            return sample.ToRecipe();
+        }
+
+        /// <summary>
+        /// Converts from recipe to model.
+        /// </summary>
+        /// <param name="sample">Recipe sample.</param>
+        /// <returns>Model description.</returns>
+        public static PerformanceCounterSample ToModel(this RecipePerformanceCounterSample sample)
+        {
+            if (sample == null)
+            {
+                throw new ArgumentNullException(nameof(sample));
+            }
+
+            var result = new PerformanceCounterSample(sample.Description.ToModel(), sample.Value);
+            return result;
+        }
+
+        /// <summary>
+        /// Converts from recipe to model.
+        /// </summary>
+        /// <param name="sample">Recipe sample.</param>
+        /// <returns>Model description.</returns>
+        public static PerformanceCounterSample FromRecipe(this RecipePerformanceCounterSample sample)
+        {
+            if (sample == null)
+            {
+                throw new ArgumentNullException(nameof(sample));
+            }
+
+            return sample.ToModel();
         }
     }
 }

@@ -46,11 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Naos.Diagnostics.Domain\PerformanceCounterDescription.cs">
+      <Link>PerformanceCounterDescription.cs</Link>
+    </Compile>
     <Compile Include="MachineMemory.cs" />
     <Compile Include="MachineMemoryKind.cs" />
     <Compile Include="MachineName.cs" />
     <Compile Include="DomainFactory.cs" />
     <Compile Include="MachineNameKind.cs" />
+    <Compile Include="PerformanceCounterLibrary.cs" />
     <Compile Include="PerformanceCounterHelpers.cs" />
     <Compile Include="ProcessHelpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -48,5 +48,22 @@ namespace Naos.Diagnostics.Recipes
                 return result;
             }
         }
+
+        /// <summary>
+        /// Samples the provided performance counter.
+        /// </summary>
+        /// <param name="description">Description to query with.</param>
+        /// <returns>Description and sample in one object.</returns>
+        public static RecipePerformanceCounterSample Sample(this RecipePerformanceCounterDescription description)
+        {
+            if (description == null)
+            {
+                throw new ArgumentNullException(nameof(description));
+            }
+
+            var nextValue = SampleNextValueOnPerformanceCounter(description.CategoryName, description.CounterName, description.InstanceName);
+            var result = new RecipePerformanceCounterSample(description, nextValue);
+            return result;
+        }
     }
 }
