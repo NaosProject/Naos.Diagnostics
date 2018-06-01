@@ -8,7 +8,7 @@ namespace Naos.Diagnostics.Domain
 {
     using System;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
 
@@ -25,7 +25,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="servicePack">Service pack of OS.</param>
         public OperatingSystemDetails(string name, Version version, string servicePack)
         {
-            new { name }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { name }.Must().NotBeNullNorWhiteSpace();
 
             this.Name = name;
             this.Version = version;

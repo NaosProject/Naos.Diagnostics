@@ -6,7 +6,7 @@
 
 namespace Naos.Diagnostics.Domain
 {
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
 
@@ -25,7 +25,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="runningAsAdmin">A value indicating whether or not the process is running as administrator.</param>
         public ProcessDetails(string name, string filePath, string fileVersion, string productVersion, bool runningAsAdmin)
         {
-            new { name }.Must().NotBeNull().And().NotBeWhiteSpace().OrThrowFirstFailure();
+            new { name }.Must().NotBeNullNorWhiteSpace();
 
             this.Name = name;
             this.FilePath = filePath;

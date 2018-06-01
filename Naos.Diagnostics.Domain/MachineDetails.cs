@@ -9,7 +9,7 @@ namespace Naos.Diagnostics.Domain
     using System.Collections.Generic;
     using System.Linq;
 
-    using Spritely.Recipes;
+    using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
 
@@ -36,7 +36,7 @@ namespace Naos.Diagnostics.Domain
             OperatingSystemDetails operatingSystem,
             string clrVersion)
         {
-            new { machineNameKindToNameMap }.Must().NotBeNull().And().NotBeEmptyEnumerable<KeyValuePair<string, string>>().OrThrowFirstFailure();
+            new { machineNameKindToNameMap }.Must().NotBeNull().And().NotBeEmptyEnumerable();
 
             this.MachineNameKindToNameMap = machineNameKindToNameMap;
             this.ProcessorCount = processorCount;
