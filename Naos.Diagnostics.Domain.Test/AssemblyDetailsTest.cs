@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="AssemblyDetailsTest.cs" company="Naos">
-//    Copyright (c) Naos 2017. All Rights Reserved.
+// <copyright file="AssemblyDetailsTest.cs" company="Naos Project">
+//    Copyright (c) Naos Project 2019. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -40,6 +40,7 @@ namespace Naos.Diagnostics.Domain.Test
             actualToString.Should().Contain(frameworkVersion);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Not necessary for the test.")]
         [Fact]
         public static void CreateFromFile_VerifyWillUseAlreadyLoadedIfSpecified()
         {
