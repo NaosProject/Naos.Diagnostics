@@ -14,7 +14,6 @@ namespace Naos.Diagnostics.Recipes
 #endif
 {
     using System;
-    using OBeautifulCode.Collection.Recipes;
     using OBeautifulCode.Math.Recipes;
     using static System.FormattableString;
 
