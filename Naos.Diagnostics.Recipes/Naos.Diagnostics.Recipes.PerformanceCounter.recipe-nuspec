@@ -4,6 +4,9 @@
     <id>Naos.Diagnostics.Recipes.PerformanceCounter</id>
     <description>Gathers performance counter related information.</description>
     <tags>diagnostics telemetry process perfcounter</tags>
+    <dependencies>
+      <dependency id="OBeautifulCode.Math.Recipes.HashCodeHelper" version ="1.0.64" />
+    </dependencies>
   </metadata>
   <files>
     <file src="..\Naos.Diagnostics.Domain\PerformanceCounterDescription.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs" />
