@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include=".recipes\OBeautifulCode.Collection\EnumerableExtensions.cs" />
+    <Compile Include=".recipes\OBeautifulCode.Math\HashCodeHelper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Reflection\AssemblyHelper.cs" />
     <Compile Include=".recipes\OBeautifulCode.Reflection\CompressionMethod.cs" />
     <Compile Include=".recipes\OBeautifulCode.String\StringExtensions.cs" />
@@ -59,6 +60,7 @@
     <Compile Include=".recipes\OBeautifulCode.Validation\Range.cs" />
     <Compile Include=".recipes\OBeautifulCode.Validation\ValidatedNotNullAttribute.cs" />
     <Compile Include="AssemblyDetails.cs" />
+    <Compile Include="PerformanceCounterSample.cs" />
     <Compile Include="PerformanceCounterDescription.cs" />
     <Compile Include="ProcessDetails.cs" />
     <Compile Include="MachineDetails.cs" />

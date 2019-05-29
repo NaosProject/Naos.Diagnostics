@@ -7,7 +7,7 @@
 namespace Naos.Diagnostics.Domain
 {
     using System;
-
+    using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
@@ -15,7 +15,7 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Model to hold details about an operating system.
     /// </summary>
-    public class OperatingSystemDetails
+    public class OperatingSystemDetails : IEquatable<OperatingSystemDetails>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="OperatingSystemDetails"/> class.
@@ -23,7 +23,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="name">Name of OS.</param>
         /// <param name="version">Version of OS.</param>
         /// <param name="servicePack">Service pack of OS.</param>
-        public OperatingSystemDetails(string name, Version version, string servicePack)
+        public OperatingSystemDetails(string name, string version, string servicePack)
         {
             new { name }.Must().NotBeNullNorWhiteSpace();
 
@@ -40,7 +40,7 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets the version.
         /// </summary>
-        public Version Version { get; private set; }
+        public string Version { get; private set; }
 
         /// <summary>
         /// Gets the service pack.
@@ -50,8 +50,54 @@ namespace Naos.Diagnostics.Domain
         /// <inheritdoc />
         public override string ToString()
         {
-            var result = Invariant($"OS - Name: {this.Name}; Version: {this.Version?.ToString() ?? "<null>"}; Service Pack: {this.ServicePack ?? "<null>"}.");
+            var result = Invariant($"OS - Name: {this.Name}; Version: {this.Version ?? "<null>"}; Service Pack: {this.ServicePack ?? "<null>"}.");
             return result;
         }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are equal.</returns>
+        public static bool operator ==(OperatingSystemDetails first, OperatingSystemDetails second)
+        {
+            if (ReferenceEquals(first, second))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(first, null) || ReferenceEquals(second, null))
+            {
+                return false;
+            }
+
+            var result = string.Equals(first.Name, second.Name, StringComparison.OrdinalIgnoreCase) &&
+                         string.Equals(first.Version, second.Version, StringComparison.OrdinalIgnoreCase) &&
+                         string.Equals(first.ServicePack, second.ServicePack, StringComparison.OrdinalIgnoreCase);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are inequal.</returns>
+        public static bool operator !=(OperatingSystemDetails first, OperatingSystemDetails second) => !(first == second);
+
+        /// <inheritdoc />
+        public bool Equals(OperatingSystemDetails other) => this == other;
+
+        /// <inheritdoc />
+        public override bool Equals(object obj) => this == (obj as OperatingSystemDetails);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => HashCodeHelper.Initialize()
+            .Hash(this.Name)
+            .Hash(this.Version)
+            .Hash(this.ServicePack)
+            .Value;
     }
 }

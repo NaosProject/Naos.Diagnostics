@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Naos.Diagnostics.Recipes.DummyFactory</id>
+    <description>A dummy factory for Diagnostics types.</description>
+    <tags>naos diagnostics fakeiteasy autofixture dummy factory</tags>
+    <dependencies>
+      <dependency id="Naos.Diagnostics" version ="$version$" />
+      <dependency id="OBeautifulCode.AutoFakeItEasy" version ="1.0.113" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="DiagnosticsDummyFactory.cs" target="content\net462\.recipes\Naos.Diagnostics\DiagnosticsDummyFactory.cs" />
+  </files>
+</package>

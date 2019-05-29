@@ -58,7 +58,7 @@ namespace Naos.Diagnostics.Recipes
                     Environment.NewLine,
                     string.Empty);
 
-            return new OperatingSystemDetails(computerInfo.OSFullName, Environment.OSVersion.Version, servicePack);
+            return new OperatingSystemDetails(computerInfo.OSFullName, Environment.OSVersion.Version.ToString(), servicePack);
         }
 
         /// <summary>

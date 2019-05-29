@@ -10,7 +10,7 @@ namespace Naos.Diagnostics.Domain
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-
+    using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.Reflection.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
@@ -19,7 +19,7 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Model that holds details about an assembly.
     /// </summary>
-    public class AssemblyDetails
+    public class AssemblyDetails : IEquatable<AssemblyDetails>
     {
         /// <summary>
         /// Reads the assembly from file path to create a <see cref="AssemblyDetails"/>.
@@ -65,7 +65,7 @@ namespace Naos.Diagnostics.Domain
 
             var frameworkVersionNumber = assembly.ImageRuntimeVersion.Substring(1, 3);
 
-            var version = asmName.Version;
+            var version = asmName.Version.ToString();
             var name = asmName.Name;
 
             var codeBase = codeBasesToIgnore.Contains(name) ? name : assembly.GetCodeBaseAsPathInsteadOfUri();
@@ -80,7 +80,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="version">Version of the assembly.</param>
         /// <param name="filePath">File path of the assembly observed.</param>
         /// <param name="frameworkVersion">Framework of assembly.</param>
-        public AssemblyDetails(string name, Version version, string filePath, string frameworkVersion)
+        public AssemblyDetails(string name, string version, string filePath, string frameworkVersion)
         {
             new { name }.Must().NotBeNullNorWhiteSpace();
 
@@ -98,7 +98,7 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Gets the version of the assembly.
         /// </summary>
-        public Version Version { get; private set; }
+        public string Version { get; private set; }
 
         /// <summary>
         /// Gets the file path the assembly was observed at.
@@ -116,5 +116,51 @@ namespace Naos.Diagnostics.Domain
             var result = Invariant($"{nameof(AssemblyDetails)} - {nameof(this.Name)}: {this.Name}; {nameof(this.Version)}: {this.Version?.ToString() ?? "<null>"}; {nameof(this.FilePath)}: {this.FilePath ?? "<null>"}; {nameof(this.FrameworkVersion)}: {this.FrameworkVersion ?? "<null>"}.");
             return result;
         }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are equal.</returns>
+        public static bool operator ==(AssemblyDetails first, AssemblyDetails second)
+        {
+            if (ReferenceEquals(first, second))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(first, null) || ReferenceEquals(second, null))
+            {
+                return false;
+            }
+
+            return string.Equals(first.Name, second.Name, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(first.Version, second.Version, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(first.FilePath, second.FilePath, StringComparison.OrdinalIgnoreCase) &&
+                   string.Equals(first.FrameworkVersion, second.FrameworkVersion, StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are inequal.</returns>
+        public static bool operator !=(AssemblyDetails first, AssemblyDetails second) => !(first == second);
+
+        /// <inheritdoc />
+        public bool Equals(AssemblyDetails other) => this == other;
+
+        /// <inheritdoc />
+        public override bool Equals(object obj) => this == (obj as AssemblyDetails);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => HashCodeHelper.Initialize()
+            .Hash(this.Name)
+            .Hash(this.Version)
+            .Hash(this.FilePath)
+            .Hash(this.FrameworkVersion)
+            .Value;
     }
 }

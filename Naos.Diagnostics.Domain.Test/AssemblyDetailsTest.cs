@@ -25,7 +25,7 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var name = A.Dummy<string>();
-            var version = new Version(1, 4);
+            var version = A.Dummy<string>();
             var filePath = A.Dummy<string>();
             var frameworkVersion = A.Dummy<string>();
             var systemUnderTest = new AssemblyDetails(name, version, filePath, frameworkVersion);
@@ -35,7 +35,7 @@ namespace Naos.Diagnostics.Domain.Test
 
             // Assert
             actualToString.Should().Contain(name);
-            actualToString.Should().Contain(version.ToString());
+            actualToString.Should().Contain(version);
             actualToString.Should().Contain(filePath);
             actualToString.Should().Contain(frameworkVersion);
         }
@@ -73,7 +73,7 @@ namespace Naos.Diagnostics.Domain.Test
             AssemblyDetails.CreateFromFile(assemblyFilePath, false);
 
             // assert
-            AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).SelectMany(
+            var loadedAssemblyDetails = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).SelectMany(
                 a =>
                 {
                     try
@@ -86,7 +86,9 @@ namespace Naos.Diagnostics.Domain.Test
                     }
 
                     return Enumerable.Empty<Type>();
-                }).Where(_ => _.Name == nameof(AssemblyDetails)).Should().HaveCount(2);
+                }).Where(_ => _.Name == nameof(AssemblyDetails)).ToList();
+
+            loadedAssemblyDetails.Should().HaveCount(2);
         }
     }
 }

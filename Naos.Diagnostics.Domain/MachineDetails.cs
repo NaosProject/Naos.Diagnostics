@@ -6,9 +6,11 @@
 
 namespace Naos.Diagnostics.Domain
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    using OBeautifulCode.Collection.Recipes;
+    using OBeautifulCode.Math.Recipes;
     using OBeautifulCode.Validation.Recipes;
 
     using static System.FormattableString;
@@ -16,7 +18,7 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Model to contain details about a machine.
     /// </summary>
-    public class MachineDetails
+    public class MachineDetails : IEquatable<MachineDetails>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MachineDetails"/> class.
@@ -83,5 +85,57 @@ namespace Naos.Diagnostics.Domain
             var result = Invariant($"{nameof(MachineDetails)} - Names: {string.Join(",", this.MachineNameKindToNameMap.Select(_ => _.Key + "=" + _.Value))}.");
             return result;
         }
+
+        /// <summary>
+        /// Equality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are equal.</returns>
+        public static bool operator ==(MachineDetails first, MachineDetails second)
+        {
+            if (ReferenceEquals(first, second))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(first, null) || ReferenceEquals(second, null))
+            {
+                return false;
+            }
+
+            var result = first.MachineNameKindToNameMap.DictionaryEqualHandlingNulls(second.MachineNameKindToNameMap) &&
+                             first.ProcessorCount == second.ProcessorCount &&
+                             first.MemoryKindToValueInGbMap.DictionaryEqualHandlingNulls(second.MemoryKindToValueInGbMap) &&
+                             first.OperatingSystemIs64Bit == second.OperatingSystemIs64Bit &&
+                             first.OperatingSystem == second.OperatingSystem &&
+                             string.Equals(first.ClrVersion, second.ClrVersion, StringComparison.OrdinalIgnoreCase);
+
+            return result;
+        }
+
+        /// <summary>
+        /// Inequality operator.
+        /// </summary>
+        /// <param name="first">First parameter.</param>
+        /// <param name="second">Second parameter.</param>
+        /// <returns>A value indicating whether or not the two items are inequal.</returns>
+        public static bool operator !=(MachineDetails first, MachineDetails second) => !(first == second);
+
+        /// <inheritdoc />
+        public bool Equals(MachineDetails other) => this == other;
+
+        /// <inheritdoc />
+        public override bool Equals(object obj) => this == (obj as MachineDetails);
+
+        /// <inheritdoc />
+        public override int GetHashCode() => HashCodeHelper.Initialize()
+            .HashDictionary(this.MachineNameKindToNameMap)
+            .Hash(this.ProcessorCount)
+            .HashDictionary(this.MemoryKindToValueInGbMap)
+            .Hash(this.OperatingSystemIs64Bit)
+            .Hash(this.OperatingSystem)
+            .Hash(this.ClrVersion)
+            .Value;
     }
 }
