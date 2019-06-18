@@ -40,6 +40,8 @@ namespace Naos.Diagnostics.Domain.Test
         [Fact]
         public static void CreateFromFile_VerifyWillUseAlreadyLoadedIfSpecified()
         {
+            // NOTE: This test passes in AppVeyor but sometimes fails locally.
+
             // NOTE: these tests have to be done serially so i'm doing both in one test, the second will pollute the AppDomain if it runs first...
 
             // arrange
