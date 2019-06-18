@@ -104,9 +104,9 @@ namespace Naos.Diagnostics.Domain
                 return false;
             }
 
-            var result = first.MachineNameKindToNameMap.DictionaryEqualHandlingNulls(second.MachineNameKindToNameMap) &&
+            var result = first.MachineNameKindToNameMap.DictionaryEqual(second.MachineNameKindToNameMap) &&
                              first.ProcessorCount == second.ProcessorCount &&
-                             first.MemoryKindToValueInGbMap.DictionaryEqualHandlingNulls(second.MemoryKindToValueInGbMap) &&
+                             first.MemoryKindToValueInGbMap.DictionaryEqual(second.MemoryKindToValueInGbMap) &&
                              first.OperatingSystemIs64Bit == second.OperatingSystemIs64Bit &&
                              first.OperatingSystem == second.OperatingSystem &&
                              string.Equals(first.ClrVersion, second.ClrVersion, StringComparison.OrdinalIgnoreCase);

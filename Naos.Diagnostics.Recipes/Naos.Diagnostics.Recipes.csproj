@@ -77,14 +77,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.0-beta004\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.0-beta004\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Naos.Diagnostics.Domain\Naos.Diagnostics.Domain.csproj">
       <Project>{6A807B60-7940-4572-834A-02ADBA16D1BF}</Project>
       <Name>Naos.Diagnostics.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.0.47\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.Unstable.1.1.0.47\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".analyzers\dictionary.xml" />

@@ -9,13 +9,9 @@ namespace Naos.Diagnostics.Domain.Test
     using System;
     using System.IO;
     using System.Linq;
-
-    using Domain;
-
     using FakeItEasy;
-
     using FluentAssertions;
-
+    using Naos.Diagnostics.Domain;
     using Xunit;
 
     public static class AssemblyDetailsTest
