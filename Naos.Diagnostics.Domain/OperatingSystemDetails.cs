@@ -24,7 +24,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="servicePack">Service pack of OS.</param>
         public OperatingSystemDetails(string name, string version, string servicePack)
         {
-            new { name }.Must().NotBeNullNorWhiteSpace();
+            new { name }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             this.Name = name;
             this.Version = version;

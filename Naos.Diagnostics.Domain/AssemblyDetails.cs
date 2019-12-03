@@ -29,7 +29,7 @@ namespace Naos.Diagnostics.Domain
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "Need to be able to do this from a file also.")]
         public static AssemblyDetails CreateFromFile(string assemblyFilePath, bool useAssemblyIfAlreadyInAppDomain = true)
         {
-            new { assemblyFilePath }.Must().NotBeNullNorWhiteSpace();
+            new { assemblyFilePath }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             Assembly assembly = null;
 
@@ -56,7 +56,7 @@ namespace Naos.Diagnostics.Domain
         /// <returns>Details about an assembly.</returns>
         public static AssemblyDetails CreateFromAssembly(Assembly assembly)
         {
-            new { assembly }.Must().NotBeNull();
+            new { assembly }.AsArg().Must().NotBeNull();
 
             var codeBasesToIgnore = new List<string>(new[] { "Microsoft.GeneratedCode", "Anonymously Hosted DynamicMethods Assembly" });
 
@@ -81,7 +81,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="frameworkVersion">Framework of assembly.</param>
         public AssemblyDetails(string name, string version, string filePath, string frameworkVersion)
         {
-            new { name }.Must().NotBeNullNorWhiteSpace();
+            new { name }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             this.Name = name;
             this.Version = version;

@@ -37,7 +37,7 @@ namespace Naos.Diagnostics.Domain
             OperatingSystemDetails operatingSystem,
             string clrVersion)
         {
-            new { machineNameKindToNameMap }.Must().NotBeNull().And().NotBeEmptyEnumerable();
+            new { machineNameKindToNameMap }.AsArg().Must().NotBeNull().And().NotBeEmptyEnumerable();
 
             this.MachineNameKindToNameMap = machineNameKindToNameMap;
             this.ProcessorCount = processorCount;

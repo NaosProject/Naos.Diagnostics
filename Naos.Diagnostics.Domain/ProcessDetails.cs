@@ -26,7 +26,7 @@ namespace Naos.Diagnostics.Domain
         /// <param name="runningAsAdmin">A value indicating whether or not the process is running as administrator.</param>
         public ProcessDetails(string name, string filePath, string fileVersion, string productVersion, bool runningAsAdmin)
         {
-            new { name }.Must().NotBeNullNorWhiteSpace();
+            new { name }.AsArg().Must().NotBeNullNorWhiteSpace();
 
             this.Name = name;
             this.FilePath = filePath;
