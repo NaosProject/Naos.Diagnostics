@@ -7,22 +7,17 @@
 namespace Naos.Diagnostics.Domain.Test
 {
     using System.Linq;
-
     using FakeItEasy;
-
     using FluentAssertions;
-
     using Naos.Diagnostics.Recipes;
-    using Naos.Serialization.Domain;
-    using Naos.Serialization.Json;
-
     using OBeautifulCode.Reflection.Recipes;
-
+    using OBeautifulCode.Serialization;
+    using OBeautifulCode.Serialization.Json;
     using Xunit;
 
     public static class PerformanceCounterTests
     {
-        private static readonly IStringSerializeAndDeserialize Serializer = new NaosJsonSerializer();
+        private static readonly IStringSerializeAndDeserialize Serializer = new ObcJsonSerializer();
 
         [Fact]
         public static void CommonCounters___Includes_all_declared()

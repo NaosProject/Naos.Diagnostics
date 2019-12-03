@@ -9,21 +9,19 @@ namespace Naos.Diagnostics.Domain.Test
     using System;
     using System.Collections.Generic;
     using FakeItEasy;
-
     using FluentAssertions;
-
     using Naos.Diagnostics.Recipes;
     using Naos.Diagnostics.Serialization.Bson;
     using Naos.Diagnostics.Serialization.Json;
-    using Naos.Serialization.Bson;
-    using Naos.Serialization.Domain;
-    using Naos.Serialization.Json;
+    using OBeautifulCode.Serialization;
+    using OBeautifulCode.Serialization.Bson;
+    using OBeautifulCode.Serialization.Json;
     using Xunit;
 
     public static class SerializationTests
     {
-        private static readonly NaosBsonSerializer BsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-        private static readonly NaosJsonSerializer JsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+        private static readonly ObcBsonSerializer BsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+        private static readonly ObcJsonSerializer JsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
         [Fact]
         public static void AssemblyDetails_Roundtrips()
@@ -48,8 +46,8 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var expected = A.Dummy<MachineDetails>();
-            var bsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-            var jsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+            var bsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+            var jsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
             // Act
             var actualBsonString = bsonSerializer.SerializeToString(expected);
@@ -68,8 +66,8 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var expected = A.Dummy<OperatingSystemDetails>();
-            var bsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-            var jsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+            var bsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+            var jsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
             // Act
             var actualBsonString = bsonSerializer.SerializeToString(expected);
@@ -88,8 +86,8 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var expected = A.Dummy<ProcessDetails>();
-            var bsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-            var jsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+            var bsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+            var jsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
             // Act
             var actualBsonString = bsonSerializer.SerializeToString(expected);
@@ -108,8 +106,8 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var expected = A.Dummy<PerformanceCounterDescription>();
-            var bsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-            var jsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+            var bsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+            var jsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
             // Act
             var actualBsonString = bsonSerializer.SerializeToString(expected);
@@ -128,8 +126,8 @@ namespace Naos.Diagnostics.Domain.Test
         {
             // Arrange
             var expected = A.Dummy<PerformanceCounterSample>();
-            var bsonSerializer = new NaosBsonSerializer(typeof(DiagnosticsBsonConfiguration));
-            var jsonSerializer = new NaosJsonSerializer(typeof(DiagnosticsJsonConfiguration));
+            var bsonSerializer = new ObcBsonSerializer(typeof(DiagnosticsBsonConfiguration));
+            var jsonSerializer = new ObcJsonSerializer(typeof(DiagnosticsJsonConfiguration));
 
             // Act
             var actualBsonString = bsonSerializer.SerializeToString(expected);

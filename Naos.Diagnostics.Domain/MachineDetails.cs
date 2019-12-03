@@ -9,10 +9,9 @@ namespace Naos.Diagnostics.Domain
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using OBeautifulCode.Assertion.Recipes;
     using OBeautifulCode.Collection.Recipes;
-    using OBeautifulCode.Math.Recipes;
-    using OBeautifulCode.Validation.Recipes;
-
+    using OBeautifulCode.Equality.Recipes;
     using static System.FormattableString;
 
     /// <summary>
@@ -104,9 +103,9 @@ namespace Naos.Diagnostics.Domain
                 return false;
             }
 
-            var result = first.MachineNameKindToNameMap.DictionaryEqual(second.MachineNameKindToNameMap) &&
+            var result = first.MachineNameKindToNameMap.IsEqualTo(second.MachineNameKindToNameMap) &&
                              first.ProcessorCount == second.ProcessorCount &&
-                             first.MemoryKindToValueInGbMap.DictionaryEqual(second.MemoryKindToValueInGbMap) &&
+                             first.MemoryKindToValueInGbMap.IsEqualTo(second.MemoryKindToValueInGbMap) &&
                              first.OperatingSystemIs64Bit == second.OperatingSystemIs64Bit &&
                              first.OperatingSystem == second.OperatingSystem &&
                              string.Equals(first.ClrVersion, second.ClrVersion, StringComparison.OrdinalIgnoreCase);
@@ -130,9 +129,9 @@ namespace Naos.Diagnostics.Domain
 
         /// <inheritdoc />
         public override int GetHashCode() => HashCodeHelper.Initialize()
-            .HashDictionary(this.MachineNameKindToNameMap)
+            .Hash(this.MachineNameKindToNameMap)
             .Hash(this.ProcessorCount)
-            .HashDictionary(this.MemoryKindToValueInGbMap)
+            .Hash(this.MemoryKindToValueInGbMap)
             .Hash(this.OperatingSystemIs64Bit)
             .Hash(this.OperatingSystem)
             .Hash(this.ClrVersion)

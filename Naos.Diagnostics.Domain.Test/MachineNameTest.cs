@@ -71,7 +71,7 @@ namespace Naos.Diagnostics.Domain.Test
         public static void GetMachineNames___Should_not_return_a_machine_name_for_all_MachineNameKind_that_is_not_null_or_white_space___When_called()
         {
             // arrange
-            var machineNameKinds = EnumExtensions.GetEnumValues<MachineNameKind>();
+            var machineNameKinds = EnumExtensions.GetAllPossibleEnumValues<MachineNameKind>();
 
             // act
             var actual = MachineName.GetMachineNames();

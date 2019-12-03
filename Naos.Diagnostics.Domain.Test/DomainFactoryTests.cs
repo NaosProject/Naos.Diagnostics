@@ -11,14 +11,14 @@ namespace Naos.Diagnostics.Domain.Test
     using FluentAssertions;
 
     using Naos.Diagnostics.Recipes;
-    using Naos.Serialization.Domain;
-    using Naos.Serialization.Json;
+    using OBeautifulCode.Serialization;
+    using OBeautifulCode.Serialization.Json;
 
     using Xunit;
 
     public static class DomainFactoryTests
     {
-        private static readonly IStringSerializeAndDeserialize Serializer = new NaosJsonSerializer();
+        private static readonly IStringSerializeAndDeserialize Serializer = new ObcJsonSerializer();
 
         [Fact]
         public static void Model_Recipe_conversions___Roundtrip()

@@ -9,7 +9,7 @@ namespace Naos.Diagnostics.Serialization.Bson
     using System;
     using System.Collections.Generic;
     using Naos.Diagnostics.Domain;
-    using Naos.Serialization.Bson;
+    using OBeautifulCode.Serialization.Bson;
 
     /// <summary>
     /// Implementation for the <see cref="Diagnostics" /> domain.

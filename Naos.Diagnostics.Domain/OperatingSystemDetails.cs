@@ -7,9 +7,8 @@
 namespace Naos.Diagnostics.Domain
 {
     using System;
-    using OBeautifulCode.Math.Recipes;
-    using OBeautifulCode.Validation.Recipes;
-
+    using OBeautifulCode.Assertion.Recipes;
+    using OBeautifulCode.Equality.Recipes;
     using static System.FormattableString;
 
     /// <summary>

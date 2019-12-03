@@ -10,10 +10,9 @@ namespace Naos.Diagnostics.Domain
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using OBeautifulCode.Math.Recipes;
+    using OBeautifulCode.Assertion.Recipes;
+    using OBeautifulCode.Equality.Recipes;
     using OBeautifulCode.Reflection.Recipes;
-    using OBeautifulCode.Validation.Recipes;
-
     using static System.FormattableString;
 
     /// <summary>

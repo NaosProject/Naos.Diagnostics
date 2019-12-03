@@ -54,7 +54,7 @@ namespace Naos.Diagnostics.Domain.Test
         public static void TestCreate()
         {
             // arrange
-            var machineNameKinds = EnumExtensions.GetEnumValues<MachineNameKind>().Select(_ => _.ToString());
+            var machineNameKinds = EnumExtensions.GetAllPossibleEnumValues<MachineNameKind>().Select(_ => _.ToString());
 
             // act
             var details = DomainFactory.CreateMachineDetails();

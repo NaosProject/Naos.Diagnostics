@@ -10,7 +10,7 @@ namespace Naos.Diagnostics.Serialization.Json
     using System.Collections.Generic;
     using Naos.Diagnostics;
     using Naos.Diagnostics.Domain;
-    using Naos.Serialization.Json;
+    using OBeautifulCode.Serialization.Json;
 
     /// <summary>
     /// Implementation for the <see cref="Diagnostics" /> domain.
