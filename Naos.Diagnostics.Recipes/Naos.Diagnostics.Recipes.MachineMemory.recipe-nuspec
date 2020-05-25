@@ -1,5 +1,5 @@
-﻿<?xml version="1.0"?>
-<package >
+<?xml version="1.0"?>
+<package>
   <metadata>
     <id>Naos.Diagnostics.Recipes.MachineMemory</id>
     <description>Gathers machine memory information.</description>

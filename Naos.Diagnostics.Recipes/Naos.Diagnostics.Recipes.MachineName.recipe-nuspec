@@ -1,5 +1,5 @@
-﻿<?xml version="1.0"?>
-<package >
+<?xml version="1.0"?>
+<package>
   <metadata>
     <id>Naos.Diagnostics.Recipes.MachineName</id>
     <description>Gathers machine names.</description>

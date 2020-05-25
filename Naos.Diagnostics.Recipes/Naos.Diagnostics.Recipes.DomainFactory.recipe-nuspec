@@ -1,5 +1,5 @@
-﻿<?xml version="1.0"?>
-<package >
+<?xml version="1.0"?>
+<package>
   <metadata>
     <id>Naos.Diagnostics.Recipes.DomainFactory</id>
     <description>Factory methods to build domain objects.</description>
@@ -13,7 +13,7 @@
         <dependency id="Naos.Diagnostics.Recipes.MachineMemory" version="$version$" />
         <dependency id="Naos.Diagnostics.Recipes.MachineName" version="$version$" />
         <dependency id="Naos.Diagnostics.Recipes.PerformanceCounter" version="$version$" />
-        <dependency id="Naos.Diagnostics.Recipes.Process" version="$version$" />
+        <dependency id="OBeautifulCode.Process.Recipes.ProcessHelper" version="1.0.5" />
       </group>
     </dependencies>
   </metadata>
