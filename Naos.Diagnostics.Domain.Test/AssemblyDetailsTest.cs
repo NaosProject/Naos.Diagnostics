@@ -12,9 +12,10 @@ namespace Naos.Diagnostics.Domain.Test
     using FakeItEasy;
     using FluentAssertions;
     using Naos.Diagnostics.Domain;
+    using OBeautifulCode.Reflection.Recipes;
     using Xunit;
 
-    public static class AssemblyDetailsTest
+    public static partial class AssemblyDetailsTest
     {
         [Fact]
         public static void ToString___Should_be_useful()
@@ -68,25 +69,34 @@ namespace Naos.Diagnostics.Domain.Test
                     }).SingleOrDefault(_ => _.Name == nameof(AssemblyDetails)).Should().NotBeNull();
 
             // act
-            AssemblyDetails.CreateFromFile(assemblyFilePath, false);
+            Action<string> action = localAssemblyFilePath => AssemblyDetails.CreateFromFile(localAssemblyFilePath, false);
 
-            // assert
-            var loadedAssemblyDetails = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).SelectMany(
-                a =>
-                {
-                    try
-                    {
-                        return a.GetExportedTypes();
-                    }
-                    catch (Exception)
-                    {
-                        /* no-op */
-                    }
+            using (var domain = AppDomainHelper.CreateDisposableAppDomain())
+            {
+                action.ExecuteInAppDomain(assemblyFilePath, domain);
 
-                    return Enumerable.Empty<Type>();
-                }).Where(_ => _.Name == nameof(AssemblyDetails)).ToList();
+                // assert
+                var loadedAssemblyDetails = domain.AppDomain.GetAssemblies()
+                                                     .Where(a => !a.IsDynamic)
+                                                     .SelectMany(
+                                                          a =>
+                                                          {
+                                                              try
+                                                              {
+                                                                  return a.GetExportedTypes();
+                                                              }
+                                                              catch (Exception)
+                                                              {
+                                                                  /* no-op */
+                                                              }
 
-            loadedAssemblyDetails.Should().HaveCount(2);
+                                                              return Enumerable.Empty<Type>();
+                                                          })
+                                                     .Where(_ => _.Name == nameof(AssemblyDetails))
+                                                     .ToList();
+
+                loadedAssemblyDetails.Should().HaveCount(2);
+            }
         }
     }
 }
