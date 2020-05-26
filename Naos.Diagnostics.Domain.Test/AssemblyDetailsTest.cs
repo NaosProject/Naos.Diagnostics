@@ -41,18 +41,17 @@ namespace Naos.Diagnostics.Domain.Test
         [Fact]
         public static void CreateFromFile_VerifyWillUseAlreadyLoadedIfSpecified()
         {
-            // NOTE: This test passes in AppVeyor but sometimes fails locally.
-
-            // NOTE: these tests have to be done serially so i'm doing both in one test, the second will pollute the AppDomain if it runs first...
+            // NOTE: this is just running the scenario in a separate appdomain to prove it does not get polluted with any additional types when working directly from a file.
 
             // arrange
             var codeBase = typeof(AssemblyDetails).Assembly.CodeBase;
             var assemblyFilePath = new Uri(codeBase).PathAndQuery.Replace('/', Path.DirectorySeparatorChar);
 
             // act
-            AssemblyDetails.CreateFromFile(assemblyFilePath);
+            var firstFromCurrentAppDomainLoadedTypes = AssemblyDetails.CreateFromFile(assemblyFilePath);
 
             // assert
+            firstFromCurrentAppDomainLoadedTypes.Should().NotBeNull();
             AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.IsDynamic).SelectMany(
                 a =>
                     {
@@ -71,8 +70,10 @@ namespace Naos.Diagnostics.Domain.Test
             // act
             Action<string> action = localAssemblyFilePath => AssemblyDetails.CreateFromFile(localAssemblyFilePath, false);
 
+            // using a dedicated AppDomain so if there are issues it will not pollute the existing AppDomain which is used for serialization et al. in other tests.
             using (var domain = AppDomainHelper.CreateDisposableAppDomain())
             {
+                action.ExecuteInAppDomain(assemblyFilePath, domain);
                 action.ExecuteInAppDomain(assemblyFilePath, domain);
 
                 // assert
@@ -95,7 +96,7 @@ namespace Naos.Diagnostics.Domain.Test
                                                      .Where(_ => _.Name == nameof(AssemblyDetails))
                                                      .ToList();
 
-                loadedAssemblyDetails.Should().HaveCount(2);
+                loadedAssemblyDetails.Should().HaveCount(1);
             }
         }
     }
