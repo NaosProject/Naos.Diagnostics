@@ -16,6 +16,12 @@ namespace Naos.Diagnostics.Serialization.Bson
     public class DiagnosticsBsonSerializationConfiguration : BsonSerializationConfigurationBase
     {
         /// <inheritdoc />
+        protected override IReadOnlyCollection<string> TypeToRegisterNamespacePrefixFilters => new[]
+                                                                                               {
+                                                                                                   typeof(AssemblyDetails).Namespace,
+                                                                                               };
+
+        /// <inheritdoc />
         protected override IReadOnlyCollection<TypeToRegisterForBson> TypesToRegisterForBson => new[]
         {
             typeof(AssemblyDetails).ToTypeToRegisterForBson(),

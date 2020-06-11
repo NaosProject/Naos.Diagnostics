@@ -16,6 +16,12 @@ namespace Naos.Diagnostics.Serialization.Json
     public class DiagnosticsJsonSerializationConfiguration : JsonSerializationConfigurationBase
     {
         /// <inheritdoc />
+        protected override IReadOnlyCollection<string> TypeToRegisterNamespacePrefixFilters => new[]
+                                                                                               {
+                                                                                                   typeof(AssemblyDetails).Namespace,
+                                                                                               };
+
+        /// <inheritdoc />
         protected override IReadOnlyCollection<TypeToRegisterForJson> TypesToRegisterForJson => new[]
         {
             typeof(AssemblyDetails).ToTypeToRegisterForJson(),
