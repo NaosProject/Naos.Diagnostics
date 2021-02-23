@@ -9,8 +9,10 @@ namespace Naos.Diagnostics.Domain.Test
     using System.Linq;
     using FakeItEasy;
     using FluentAssertions;
+    using FluentAssertions.Common;
     using Naos.Diagnostics.Recipes;
     using OBeautifulCode.Reflection.Recipes;
+    using OBeautifulCode.Type.Recipes;
     using OBeautifulCode.Serialization;
     using OBeautifulCode.Serialization.Json;
     using Xunit;
@@ -25,8 +27,10 @@ namespace Naos.Diagnostics.Domain.Test
             // Arrange & Act
             var common = PerformanceCounterLibrary.CommonCounters;
             var type = typeof(PerformanceCounterLibrary);
-            var publics = type.GetPropertyNames().Where(_ => _ != nameof(PerformanceCounterLibrary.CommonCounters))
-                .Select(_ => type.GetPropertyValue<RecipePerformanceCounterDescription>(_)).ToList();
+            var publics = type.GetPropertiesFiltered(MemberRelationships.DeclaredInType)
+                              .Where(_ => _.Name != nameof(PerformanceCounterLibrary.CommonCounters))
+                              .Select(_ => _.GetValue(null))
+                              .ToList();
 
             // Assert
             var actualCommon = Serializer.SerializeToString(common);
