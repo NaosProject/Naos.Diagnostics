@@ -12,7 +12,6 @@ namespace Naos.Diagnostics.Domain.Test
     using FluentAssertions.Common;
     using Naos.Diagnostics.Recipes;
     using OBeautifulCode.Reflection.Recipes;
-    using OBeautifulCode.Type.Recipes;
     using OBeautifulCode.Serialization;
     using OBeautifulCode.Serialization.Json;
     using Xunit;
