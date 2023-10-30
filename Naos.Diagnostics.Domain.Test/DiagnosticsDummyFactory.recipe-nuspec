@@ -5,7 +5,7 @@
     <description>A dummy factory for Diagnostics types.</description>
     <tags>naos diagnostics fakeiteasy autofixture dummy factory</tags>
     <dependencies>
-      <dependency id="Naos.Diagnostics" version="$version$" />
+      <dependency id="Naos.Diagnostics.Domain" version="$version$" />
       <dependency id="OBeautifulCode.AutoFakeItEasy" version="1.0.127" />
     </dependencies>
   </metadata>
