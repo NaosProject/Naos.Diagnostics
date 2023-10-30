@@ -13,8 +13,8 @@ namespace Naos.Diagnostics.Domain.Test
 
     public static class SerializationConfigurationTypes
     {
-        public static BsonSerializationConfigurationType BsonConfigurationType => typeof(DiagnosticsBsonSerializationConfiguration).ToBsonSerializationConfigurationType();
+        public static BsonSerializationConfigurationType BsonSerializationConfigurationType => typeof(DiagnosticsBsonSerializationConfiguration).ToBsonSerializationConfigurationType();
 
-        public static JsonSerializationConfigurationType JsonConfigurationType => typeof(DiagnosticsJsonSerializationConfiguration).ToJsonSerializationConfigurationType();
+        public static JsonSerializationConfigurationType JsonSerializationConfigurationType => typeof(DiagnosticsJsonSerializationConfiguration).ToJsonSerializationConfigurationType();
     }
 }

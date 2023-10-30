@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Naos.Diagnostics.Recipes
+namespace Naos.Diagnostics.Domain.Test
 {
     using System;
     using System.Collections.Generic;
@@ -23,8 +23,11 @@ namespace Naos.Diagnostics.Recipes
     [System.Diagnostics.DebuggerStepThrough]
     [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
     [System.CodeDom.Compiler.GeneratedCode("Naos.Diagnostics", "See package version number")]
+    internal
+#else
+    public
 #endif
-    public class DiagnosticsDummyFactory : IDummyFactory
+    class DiagnosticsDummyFactory : DefaultDiagnosticsDummyFactory
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DiagnosticsDummyFactory"/> class.
@@ -33,6 +36,22 @@ namespace Naos.Diagnostics.Recipes
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity", Justification = "This is not excessively complex.  Dummy factories typically wire-up many types.")]
         public DiagnosticsDummyFactory()
         {
+            AutoFixtureBackedDummyFactory.AddDummyCreator(
+                () => new CheckDrivesOp(
+                    (decimal)A.Dummy<int>().ThatIsInRange(0, 100)/100));
+
+            AutoFixtureBackedDummyFactory.AddDummyCreator(
+                () => new CheckDrivesReport(
+                    A.Dummy<bool>(),
+                    A.Dummy<IReadOnlyDictionary<string, CheckSingleDriveReport>>(),
+                    A.Dummy<UtcDateTime>()));
+
+            AutoFixtureBackedDummyFactory.AddDummyCreator(
+                () => new CheckSingleDriveReport(
+                    A.Dummy<string>(),
+                    A.Dummy<PositiveInteger>(),
+                    A.Dummy<PositiveInteger>()));
+
             AutoFixtureBackedDummyFactory.AddDummyCreator(
                 () =>
                 {
@@ -104,21 +123,6 @@ namespace Naos.Diagnostics.Recipes
 
                     return result;
                 });
-        }
-
-        /// <inheritdoc />
-        public Priority Priority => new FakeItEasy.Priority(1);
-
-        /// <inheritdoc />
-        public bool CanCreate(Type type)
-        {
-            return false;
-        }
-
-        /// <inheritdoc />
-        public object Create(Type type)
-        {
-            return null;
         }
     }
 }

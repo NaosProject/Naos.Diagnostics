@@ -115,10 +115,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Naos.Diagnostics.Domain\PerformanceCounterDescription.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterDescription.cs">
       <Link>.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs</Link>
     </Compile>
-    <Compile Include="..\Naos.Diagnostics.Domain\PerformanceCounterSample.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterSample.cs">
       <Link>.recipes\Naos.Diagnostics\PerformanceCounterSample.cs</Link>
     </Compile>
     <Compile Include="..\Naos.Diagnostics.Recipes\DomainFactory.cs">
@@ -245,11 +245,34 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="CheckDrivesOpTest.cs" />
+    <Compile Include="CheckDrivesOpTest.designer.cs">
+      <DependentUpon>CheckDrivesOpTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckDrivesReportTest.cs" />
+    <Compile Include="CheckDrivesReportTest.designer.cs">
+      <DependentUpon>CheckDrivesReportTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CheckSingleDriveReportTest.cs" />
+    <Compile Include="CheckSingleDriveReportTest.designer.cs">
+      <DependentUpon>CheckSingleDriveReportTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="DiagnosticsDummyFactory.cs" />
     <Compile Include="AssemblyDetailsTest.cs" />
+    <Compile Include="DiagnosticsDummyFactory.designer.cs">
+      <DependentUpon>DiagnosticsDummyFactory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DiagnosticsDummyFactoryTest.cs" />
+    <Compile Include="DiagnosticsDummyFactoryTest.designer.cs">
+      <DependentUpon>DiagnosticsDummyFactoryTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MachineDetailsTest.cs" />
     <Compile Include="DomainFactoryTests.cs" />
+    <Compile Include="PerformDefaultDiagnosticChecksOpTest.cs" />
+    <Compile Include="PerformDefaultDiagnosticChecksOpTest.designer.cs">
+      <DependentUpon>PerformDefaultDiagnosticChecksOpTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProcessDetailsTest.cs" />
     <Compile Include="PerformanceCounterTests.cs" />
     <Compile Include="MachineNameTest.cs" />

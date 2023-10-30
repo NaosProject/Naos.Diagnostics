@@ -25,8 +25,12 @@ namespace Naos.Diagnostics.Serialization.Json
         protected override IReadOnlyCollection<TypeToRegisterForJson> TypesToRegisterForJson => new[]
         {
             typeof(AssemblyDetails).ToTypeToRegisterForJson(),
+            typeof(CheckDrivesOp).ToTypeToRegisterForJson(),
+            typeof(CheckDrivesReport).ToTypeToRegisterForJson(),
+            typeof(CheckSingleDriveReport).ToTypeToRegisterForJson(),
             typeof(MachineDetails).ToTypeToRegisterForJson(),
             typeof(OperatingSystemDetails).ToTypeToRegisterForJson(),
+            typeof(PerformDefaultDiagnosticChecksOp).ToTypeToRegisterForJson(),
             typeof(PerformanceCounterDescription).ToTypeToRegisterForJson(),
             typeof(PerformanceCounterSample).ToTypeToRegisterForJson(),
             typeof(ProcessDetails).ToTypeToRegisterForJson(),

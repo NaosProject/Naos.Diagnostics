@@ -25,8 +25,12 @@ namespace Naos.Diagnostics.Serialization.Bson
         protected override IReadOnlyCollection<TypeToRegisterForBson> TypesToRegisterForBson => new[]
         {
             typeof(AssemblyDetails).ToTypeToRegisterForBson(),
+            typeof(CheckDrivesOp).ToTypeToRegisterForBson(),
+            typeof(CheckDrivesReport).ToTypeToRegisterForBson(),
+            typeof(CheckSingleDriveReport).ToTypeToRegisterForBson(),
             typeof(MachineDetails).ToTypeToRegisterForBson(),
             typeof(OperatingSystemDetails).ToTypeToRegisterForBson(),
+            typeof(PerformDefaultDiagnosticChecksOp).ToTypeToRegisterForBson(),
             typeof(PerformanceCounterDescription).ToTypeToRegisterForBson(),
             typeof(PerformanceCounterSample).ToTypeToRegisterForBson(),
             typeof(ProcessDetails).ToTypeToRegisterForBson(),
