@@ -101,6 +101,51 @@ namespace Naos.Diagnostics.Domain.Test
                                                                },
                         });
 
+            EquatableTestScenarios
+               .RemoveAllScenarios()
+               .AddScenario(
+                    () =>
+                        new EquatableTestScenario<CheckSingleDriveReport>
+                        {
+                            Name = "Default Code Generated Scenario",
+                            ReferenceObject = ReferenceObjectForEquatableTestScenarios,
+                            ObjectsThatAreEqualToButNotTheSameAsReferenceObject = new CheckSingleDriveReport[]
+                                                                                  {
+                                                                                      new CheckSingleDriveReport(
+                                                                                          ReferenceObjectForEquatableTestScenarios.Name,
+                                                                                          ReferenceObjectForEquatableTestScenarios
+                                                                                             .TotalFreeSpaceInBytes,
+                                                                                          ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
+                                                                                  },
+                            ObjectsThatAreNotEqualToReferenceObject = new CheckSingleDriveReport[]
+                                                                      {
+                                                                          new CheckSingleDriveReport(
+                                                                              A.Dummy<CheckSingleDriveReport>()
+                                                                               .Whose(
+                                                                                    _ => !_.Name.IsEqualTo(
+                                                                                        ReferenceObjectForEquatableTestScenarios.Name))
+                                                                               .Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
+                                                                          new CheckSingleDriveReport(
+                                                                              ReferenceObjectForEquatableTestScenarios.Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes - 1,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
+                                                                          new CheckSingleDriveReport(
+                                                                              ReferenceObjectForEquatableTestScenarios.Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes + 1),
+                                                                      },
+                            ObjectsThatAreNotOfTheSameTypeAsReferenceObject = new object[]
+                                                                              {
+                                                                                  A.Dummy<object>(),
+                                                                                  A.Dummy<string>(),
+                                                                                  A.Dummy<int>(),
+                                                                                  A.Dummy<int?>(),
+                                                                                  A.Dummy<Guid>(),
+                                                                              },
+                        });
+
             DeepCloneWithTestScenarios
                .RemoveAllScenarios()
                .AddScenario(

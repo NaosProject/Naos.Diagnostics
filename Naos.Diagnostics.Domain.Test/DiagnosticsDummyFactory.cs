@@ -50,9 +50,10 @@ namespace Naos.Diagnostics.Domain.Test
                 () =>
                 {
                     var totalSizeInBytes = A.Dummy<PositiveInteger>();
+                    var totalFreeSpaceInBytes = A.Dummy<int>().ThatIsInRange(1, totalSizeInBytes - 1);
                     return new CheckSingleDriveReport(
                         A.Dummy<string>(),
-                        A.Dummy<int>().ThatIsInRange(1, totalSizeInBytes - 1),
+                        totalFreeSpaceInBytes,
                         totalSizeInBytes);
                 });
 

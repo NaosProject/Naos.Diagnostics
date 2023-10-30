@@ -11,5 +11,6 @@
   </metadata>
   <files>
     <file src="DiagnosticsDummyFactory.cs" target="content\net462\.recipes\Naos.Diagnostics\DiagnosticsDummyFactory.cs" />
+    <file src="DiagnosticsDummyFactory.designer.cs" target="content\net462\.recipes\Naos.Diagnostics\DiagnosticsDummyFactory.designer.cs" />
   </files>
 </package>
