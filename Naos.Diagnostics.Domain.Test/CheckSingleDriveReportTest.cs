@@ -29,6 +29,53 @@ namespace Naos.Diagnostics.Domain.Test
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = ObcSuppressBecause.CA1810_InitializeReferenceTypeStaticFieldsInline_FieldsDeclaredInCodeGeneratedPartialTestClass)]
         static CheckSingleDriveReportTest()
         {
+            ConstructorArgumentValidationTestScenarios
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is less than zero scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                   var result = new CheckSingleDriveReport(
+                                                       referenceObject.Name,
+                                                       -1,
+                                                       referenceObject.TotalSizeInBytes);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "totalFreeSpaceInBytes",
+                                                               },
+                        })
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalSizeInBytes' is less than zero scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                   var result = new CheckSingleDriveReport(
+                                                       referenceObject.Name,
+                                                       referenceObject.TotalFreeSpaceInBytes,
+                                                       -1);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "totalSizeInBytes",
+                                                               },
+                        });
         }
     }
 }

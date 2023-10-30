@@ -29,12 +29,13 @@ namespace Naos.Diagnostics.Domain.Test
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = ObcSuppressBecause.CA1810_InitializeReferenceTypeStaticFieldsInline_FieldsDeclaredInCodeGeneratedPartialTestClass)]
         static CheckDrivesOpTest()
         {
-            ConstructorArgumentValidationTestScenarios = new ConstructorArgumentValidationTestScenarios<CheckDrivesOp>()
+            ConstructorArgumentValidationTestScenarios
                .AddScenario(
                     () =>
                         new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
                         {
-                            Name = "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is less than 0 scenario",
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is less than 0 scenario",
                             ConstructionFunc = () =>
                                                {
                                                    var result = new CheckDrivesOp(-1);
@@ -47,11 +48,12 @@ namespace Naos.Diagnostics.Domain.Test
                                                                    "threshold",
                                                                },
                         })
-                                                        .AddScenario(
+               .AddScenario(
                     () =>
                         new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
                         {
-                            Name = "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is greater than 1 scenario",
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is greater than 1 scenario",
                             ConstructionFunc = () =>
                                                {
                                                    var result = new CheckDrivesOp(2);
