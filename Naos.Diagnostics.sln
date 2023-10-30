@@ -22,6 +22,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naos.Diagnostics.Serializat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naos.Diagnostics.Serialization.Bson", "Naos.Diagnostics.Serialization.Bson\Naos.Diagnostics.Serialization.Bson.csproj", "{B669D2A5-769C-4574-8C4E-04BEB932C3F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naos.Diagnostics.Protocol", "Naos.Diagnostics.Protocol\Naos.Diagnostics.Protocol.csproj", "{E1D3A6C6-1499-40D8-9201-366F935573C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naos.Diagnostics.Protocol.Test", "Naos.Diagnostics.Protocol.Test\Naos.Diagnostics.Protocol.Test.csproj", "{AD8D12A8-21C3-4FAE-8204-5F97F8C4BEA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,14 @@ Global
 		{B669D2A5-769C-4574-8C4E-04BEB932C3F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B669D2A5-769C-4574-8C4E-04BEB932C3F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B669D2A5-769C-4574-8C4E-04BEB932C3F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1D3A6C6-1499-40D8-9201-366F935573C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1D3A6C6-1499-40D8-9201-366F935573C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1D3A6C6-1499-40D8-9201-366F935573C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1D3A6C6-1499-40D8-9201-366F935573C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD8D12A8-21C3-4FAE-8204-5F97F8C4BEA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8D12A8-21C3-4FAE-8204-5F97F8C4BEA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8D12A8-21C3-4FAE-8204-5F97F8C4BEA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8D12A8-21C3-4FAE-8204-5F97F8C4BEA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
