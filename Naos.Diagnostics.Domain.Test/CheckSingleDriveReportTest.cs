@@ -16,6 +16,7 @@ namespace Naos.Diagnostics.Domain.Test
     using OBeautifulCode.AutoFakeItEasy;
     using OBeautifulCode.CodeAnalysis.Recipes;
     using OBeautifulCode.CodeGen.ModelObject.Recipes;
+    using OBeautifulCode.Equality.Recipes;
     using OBeautifulCode.Math.Recipes;
 
     using Xunit;
@@ -98,6 +99,72 @@ namespace Naos.Diagnostics.Domain.Test
                                                                {
                                                                    "totalSizeInBytes",
                                                                },
+                        });
+
+            DeepCloneWithTestScenarios
+               .RemoveAllScenarios()
+               .AddScenario(
+                    () =>
+                        new DeepCloneWithTestScenario<CheckSingleDriveReport>
+                        {
+                            Name = "DeepCloneWithName should deep clone object and replace Name with the provided name",
+                            WithPropertyName = "Name",
+                            SystemUnderTestDeepCloneWithValueFunc = () =>
+                                                                    {
+                                                                        var systemUnderTest = A.Dummy<CheckSingleDriveReport>();
+
+                                                                        var referenceObject =
+                                                                            A.Dummy<CheckSingleDriveReport>()
+                                                                             .ThatIs(_ => !systemUnderTest.Name.IsEqualTo(_.Name));
+
+                                                                        var result = new SystemUnderTestDeepCloneWithValue<CheckSingleDriveReport>
+                                                                                     {
+                                                                                         SystemUnderTest = systemUnderTest,
+                                                                                         DeepCloneWithValue = referenceObject.Name,
+                                                                                     };
+
+                                                                        return result;
+                                                                    },
+                        })
+               .AddScenario(
+                    () =>
+                        new DeepCloneWithTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
+                                "DeepCloneWithTotalFreeSpaceInBytes should deep clone object and replace TotalFreeSpaceInBytes with the provided totalFreeSpaceInBytes",
+                            WithPropertyName = "TotalFreeSpaceInBytes",
+                            SystemUnderTestDeepCloneWithValueFunc = () =>
+                                                                    {
+                                                                        var systemUnderTest = A.Dummy<CheckSingleDriveReport>();
+
+                                                                        var result = new SystemUnderTestDeepCloneWithValue<CheckSingleDriveReport>
+                                                                                     {
+                                                                                         SystemUnderTest = systemUnderTest,
+                                                                                         DeepCloneWithValue = systemUnderTest.TotalFreeSpaceInBytes - 1,
+                                                                                     };
+
+                                                                        return result;
+                                                                    },
+                        })
+               .AddScenario(
+                    () =>
+                        new DeepCloneWithTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
+                                "DeepCloneWithTotalSizeInBytes should deep clone object and replace TotalSizeInBytes with the provided totalSizeInBytes",
+                            WithPropertyName = "TotalSizeInBytes",
+                            SystemUnderTestDeepCloneWithValueFunc = () =>
+                                                                    {
+                                                                        var systemUnderTest = A.Dummy<CheckSingleDriveReport>();
+
+                                                                        var result = new SystemUnderTestDeepCloneWithValue<CheckSingleDriveReport>
+                                                                                     {
+                                                                                         SystemUnderTest = systemUnderTest,
+                                                                                         DeepCloneWithValue = systemUnderTest.TotalSizeInBytes + 1,
+                                                                                     };
+
+                                                                        return result;
+                                                                    },
                         });
         }
     }

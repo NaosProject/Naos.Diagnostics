@@ -52,7 +52,7 @@ namespace Naos.Diagnostics.Domain.Test
                     var totalSizeInBytes = A.Dummy<PositiveInteger>();
                     return new CheckSingleDriveReport(
                         A.Dummy<string>(),
-                        A.Dummy<int>().ThatIsInRange(1, totalSizeInBytes),
+                        A.Dummy<int>().ThatIsInRange(1, totalSizeInBytes - 1),
                         totalSizeInBytes);
                 });
 
