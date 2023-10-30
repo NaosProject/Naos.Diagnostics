@@ -25,6 +25,7 @@ namespace Naos.Diagnostics.Domain
             name.MustForArg(nameof(name)).NotBeNullNorWhiteSpace();
             totalFreeSpaceInBytes.MustForArg(nameof(totalFreeSpaceInBytes)).BeGreaterThanOrEqualTo(0L);
             totalSizeInBytes.MustForArg(nameof(totalSizeInBytes)).BeGreaterThanOrEqualTo(0L);
+            totalFreeSpaceInBytes.MustForArg(nameof(totalFreeSpaceInBytes)).BeLessThanOrEqualTo(totalSizeInBytes);
 
             this.Name = name;
             this.TotalFreeSpaceInBytes = totalFreeSpaceInBytes;

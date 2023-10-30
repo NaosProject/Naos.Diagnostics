@@ -47,10 +47,14 @@ namespace Naos.Diagnostics.Domain.Test
                     A.Dummy<UtcDateTime>()));
 
             AutoFixtureBackedDummyFactory.AddDummyCreator(
-                () => new CheckSingleDriveReport(
-                    A.Dummy<string>(),
-                    A.Dummy<PositiveInteger>(),
-                    A.Dummy<PositiveInteger>()));
+                () =>
+                {
+                    var totalSizeInBytes = A.Dummy<PositiveInteger>();
+                    return new CheckSingleDriveReport(
+                        A.Dummy<string>(),
+                        A.Dummy<int>().ThatIsInRange(1, totalSizeInBytes),
+                        totalSizeInBytes);
+                });
 
             AutoFixtureBackedDummyFactory.AddDummyCreator(
                 () =>

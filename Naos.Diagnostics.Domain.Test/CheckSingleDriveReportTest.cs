@@ -35,6 +35,29 @@ namespace Naos.Diagnostics.Domain.Test
                         new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
                         {
                             Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is bigger than 'totalSizeInBytes' scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                   var result = new CheckSingleDriveReport(
+                                                       referenceObject.Name,
+                                                       referenceObject.TotalSizeInBytes + 1,
+                                                       referenceObject.TotalSizeInBytes);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "totalFreeSpaceInBytes",
+                                                               },
+                        })
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
                                 "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is less than zero scenario",
                             ConstructionFunc = () =>
                                                {
