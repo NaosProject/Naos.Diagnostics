@@ -36,6 +36,30 @@ namespace Naos.Diagnostics.Domain.Test
                         new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
                         {
                             Name =
+                                "constructor should throw ArgumentException when parameter 'status' is 'Invalid' scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                   var result = new CheckSingleDriveReport(
+                                                       referenceObject.Name,
+                                                       CheckStatus.Invalid,
+                                                       referenceObject.TotalSizeInBytes,
+                                                       referenceObject.TotalSizeInBytes);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "status",
+                                                               },
+                        })
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                        {
+                            Name =
                                 "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is bigger than 'totalSizeInBytes' scenario",
                             ConstructionFunc = () =>
                                                {
@@ -43,6 +67,7 @@ namespace Naos.Diagnostics.Domain.Test
 
                                                    var result = new CheckSingleDriveReport(
                                                        referenceObject.Name,
+                                                       referenceObject.Status,
                                                        referenceObject.TotalSizeInBytes + 1,
                                                        referenceObject.TotalSizeInBytes);
 
@@ -66,6 +91,7 @@ namespace Naos.Diagnostics.Domain.Test
 
                                                    var result = new CheckSingleDriveReport(
                                                        referenceObject.Name,
+                                                       referenceObject.Status,
                                                        -1,
                                                        referenceObject.TotalSizeInBytes);
 
@@ -89,6 +115,7 @@ namespace Naos.Diagnostics.Domain.Test
 
                                                    var result = new CheckSingleDriveReport(
                                                        referenceObject.Name,
+                                                       referenceObject.Status,
                                                        referenceObject.TotalFreeSpaceInBytes,
                                                        -1);
 
@@ -113,8 +140,8 @@ namespace Naos.Diagnostics.Domain.Test
                                                                                   {
                                                                                       new CheckSingleDriveReport(
                                                                                           ReferenceObjectForEquatableTestScenarios.Name,
-                                                                                          ReferenceObjectForEquatableTestScenarios
-                                                                                             .TotalFreeSpaceInBytes,
+                                                                                          ReferenceObjectForEquatableTestScenarios.Status,
+                                                                                          ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
                                                                                           ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
                                                                                   },
                             ObjectsThatAreNotEqualToReferenceObject = new CheckSingleDriveReport[]
@@ -125,16 +152,24 @@ namespace Naos.Diagnostics.Domain.Test
                                                                                     _ => !_.Name.IsEqualTo(
                                                                                         ReferenceObjectForEquatableTestScenarios.Name))
                                                                                .Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.Status,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
                                                                           new CheckSingleDriveReport(
                                                                               ReferenceObjectForEquatableTestScenarios.Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.Status,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes - 1,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
                                                                           new CheckSingleDriveReport(
                                                                               ReferenceObjectForEquatableTestScenarios.Name,
+                                                                              ReferenceObjectForEquatableTestScenarios.Status,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
                                                                               ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes + 1),
+                                                                          new CheckSingleDriveReport(
+                                                                              ReferenceObjectForEquatableTestScenarios.Name,
+                                                                              A.Dummy<CheckStatus>().ThatIsNot(ReferenceObjectForEquatableTestScenarios.Status),
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalFreeSpaceInBytes,
+                                                                              ReferenceObjectForEquatableTestScenarios.TotalSizeInBytes),
                                                                       },
                             ObjectsThatAreNotOfTheSameTypeAsReferenceObject = new object[]
                                                                               {
@@ -171,6 +206,26 @@ namespace Naos.Diagnostics.Domain.Test
                                                                         return result;
                                                                     },
                         })
+               .AddScenario(() =>
+                                new DeepCloneWithTestScenario<CheckSingleDriveReport>
+                                {
+                                    Name = "DeepCloneWithStatus should deep clone object and replace Status with the provided status",
+                                    WithPropertyName = "Status",
+                                    SystemUnderTestDeepCloneWithValueFunc = () =>
+                                                                            {
+                                                                                var systemUnderTest = A.Dummy<CheckSingleDriveReport>();
+
+                                                                                var referenceObject = A.Dummy<CheckSingleDriveReport>().ThatIs(_ => !systemUnderTest.Status.IsEqualTo(_.Status));
+
+                                                                                var result = new SystemUnderTestDeepCloneWithValue<CheckSingleDriveReport>
+                                                                                             {
+                                                                                                 SystemUnderTest = systemUnderTest,
+                                                                                                 DeepCloneWithValue = referenceObject.Status,
+                                                                                             };
+
+                                                                                return result;
+                                                                            },
+                                })
                .AddScenario(
                     () =>
                         new DeepCloneWithTestScenario<CheckSingleDriveReport>

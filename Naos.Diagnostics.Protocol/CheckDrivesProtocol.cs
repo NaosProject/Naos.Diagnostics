@@ -41,19 +41,20 @@ namespace Naos.Diagnostics.Protocol
             operation.MustForArg(nameof(operation)).NotBeNull();
 
             var utcNow = this.GetUtcNow();
-            var shouldAlert = false;
             var drives = DriveInfo.GetDrives();
             var driveToReportMap = drives.Where(_ => _.IsReady)
                                          .ToDictionary(
                                               k => k.Name,
-                                              v => new CheckSingleDriveReport(v.Name, v.TotalFreeSpace, v.TotalSize));
+                                              v =>
+                                              {
+                                                  var failure = ((decimal)v.TotalFreeSpace / (decimal)v.TotalSize) < operation.FailureThreshold;
+                                                  var warning = ((decimal)v.TotalFreeSpace / (decimal)v.TotalSize) < operation.WarningThreshold;
+                                                  var status = failure ? CheckStatus.Failure : (warning ? CheckStatus.Warning : CheckStatus.Success);
+                                                  return new CheckSingleDriveReport(v.Name, status, v.TotalFreeSpace, v.TotalSize);
+                                              });
 
-            if (driveToReportMap.Values.Any(_ => ((decimal)_.TotalFreeSpaceInBytes / (decimal)_.TotalSizeInBytes) < operation.Threshold))
-            {
-                shouldAlert = true;
-            }
-
-            var result = new CheckDrivesReport(shouldAlert, driveToReportMap, utcNow);
+            var consolidatedStatus = driveToReportMap.Values.Select(_ => _.Status).ToList().ReduceToSingleStatus();
+            var result = new CheckDrivesReport(consolidatedStatus, driveToReportMap, operation, utcNow);
             return result;
         }
     }

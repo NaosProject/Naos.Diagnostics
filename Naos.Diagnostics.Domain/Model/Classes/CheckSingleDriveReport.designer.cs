@@ -23,15 +23,15 @@ namespace Naos.Diagnostics.Domain
     using static global::System.FormattableString;
 
     [Serializable]
-    public partial class CheckDrivesReport : IModel<CheckDrivesReport>
+    public partial class CheckSingleDriveReport : IModel<CheckSingleDriveReport>
     {
         /// <summary>
-        /// Determines whether two objects of type <see cref="CheckDrivesReport"/> are equal.
+        /// Determines whether two objects of type <see cref="CheckSingleDriveReport"/> are equal.
         /// </summary>
         /// <param name="left">The object to the left of the equality operator.</param>
         /// <param name="right">The object to the right of the equality operator.</param>
         /// <returns>true if the two items are equal; otherwise false.</returns>
-        public static bool operator ==(CheckDrivesReport left, CheckDrivesReport right)
+        public static bool operator ==(CheckSingleDriveReport left, CheckSingleDriveReport right)
         {
             if (ReferenceEquals(left, right))
             {
@@ -49,15 +49,15 @@ namespace Naos.Diagnostics.Domain
         }
 
         /// <summary>
-        /// Determines whether two objects of type <see cref="CheckDrivesReport"/> are not equal.
+        /// Determines whether two objects of type <see cref="CheckSingleDriveReport"/> are not equal.
         /// </summary>
         /// <param name="left">The object to the left of the equality operator.</param>
         /// <param name="right">The object to the right of the equality operator.</param>
         /// <returns>true if the two items are not equal; otherwise false.</returns>
-        public static bool operator !=(CheckDrivesReport left, CheckDrivesReport right) => !(left == right);
+        public static bool operator !=(CheckSingleDriveReport left, CheckSingleDriveReport right) => !(left == right);
 
         /// <inheritdoc />
-        public bool Equals(CheckDrivesReport other)
+        public bool Equals(CheckSingleDriveReport other)
         {
             if (ReferenceEquals(this, other))
             {
@@ -69,42 +69,45 @@ namespace Naos.Diagnostics.Domain
                 return false;
             }
 
-            var result = this.ShouldAlert.IsEqualTo(other.ShouldAlert)
-                      && this.DriveNameToReportMap.IsEqualTo(other.DriveNameToReportMap)
-                      && this.SampleTimeUtc.IsEqualTo(other.SampleTimeUtc);
+            var result = this.Status.IsEqualTo(other.Status)
+                      && this.Name.IsEqualTo(other.Name, StringComparer.Ordinal)
+                      && this.TotalFreeSpaceInBytes.IsEqualTo(other.TotalFreeSpaceInBytes)
+                      && this.TotalSizeInBytes.IsEqualTo(other.TotalSizeInBytes);
 
             return result;
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj) => this == (obj as CheckDrivesReport);
+        public override bool Equals(object obj) => this == (obj as CheckSingleDriveReport);
 
         /// <inheritdoc />
         public override int GetHashCode() => HashCodeHelper.Initialize()
-            .Hash(this.ShouldAlert)
-            .Hash(this.DriveNameToReportMap)
-            .Hash(this.SampleTimeUtc)
+            .Hash(this.Status)
+            .Hash(this.Name)
+            .Hash(this.TotalFreeSpaceInBytes)
+            .Hash(this.TotalSizeInBytes)
             .Value;
 
         /// <inheritdoc />
         public object Clone() => this.DeepClone();
 
         /// <inheritdoc />
-        public CheckDrivesReport DeepClone()
+        public CheckSingleDriveReport DeepClone()
         {
-            var result = new CheckDrivesReport(
-                                 this.ShouldAlert.DeepClone(),
-                                 this.DriveNameToReportMap?.DeepClone(),
-                                 this.SampleTimeUtc.DeepClone());
+            var result = new CheckSingleDriveReport(
+                                 this.Name?.DeepClone(),
+                                 this.Status.DeepClone(),
+                                 this.TotalFreeSpaceInBytes.DeepClone(),
+                                 this.TotalSizeInBytes.DeepClone());
 
             return result;
         }
 
         /// <summary>
-        /// Deep clones this object with a new <see cref="ShouldAlert" />.
+        /// Deep clones this object with a new <see cref="Status" />.
         /// </summary>
-        /// <param name="shouldAlert">The new <see cref="ShouldAlert" />.  This object will NOT be deep cloned; it is used as-is.</param>
-        /// <returns>New <see cref="CheckDrivesReport" /> using the specified <paramref name="shouldAlert" /> for <see cref="ShouldAlert" /> and a deep clone of every other property.</returns>
+        /// <param name="status">The new <see cref="Status" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckSingleDriveReport" /> using the specified <paramref name="status" /> for <see cref="Status" /> and a deep clone of every other property.</returns>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
@@ -122,21 +125,22 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public CheckDrivesReport DeepCloneWithShouldAlert(bool shouldAlert)
+        public CheckSingleDriveReport DeepCloneWithStatus(CheckStatus status)
         {
-            var result = new CheckDrivesReport(
-                                 shouldAlert,
-                                 this.DriveNameToReportMap?.DeepClone(),
-                                 this.SampleTimeUtc.DeepClone());
+            var result = new CheckSingleDriveReport(
+                                 this.Name?.DeepClone(),
+                                 status,
+                                 this.TotalFreeSpaceInBytes.DeepClone(),
+                                 this.TotalSizeInBytes.DeepClone());
 
             return result;
         }
 
         /// <summary>
-        /// Deep clones this object with a new <see cref="DriveNameToReportMap" />.
+        /// Deep clones this object with a new <see cref="Name" />.
         /// </summary>
-        /// <param name="driveNameToReportMap">The new <see cref="DriveNameToReportMap" />.  This object will NOT be deep cloned; it is used as-is.</param>
-        /// <returns>New <see cref="CheckDrivesReport" /> using the specified <paramref name="driveNameToReportMap" /> for <see cref="DriveNameToReportMap" /> and a deep clone of every other property.</returns>
+        /// <param name="name">The new <see cref="Name" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckSingleDriveReport" /> using the specified <paramref name="name" /> for <see cref="Name" /> and a deep clone of every other property.</returns>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
@@ -154,21 +158,22 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public CheckDrivesReport DeepCloneWithDriveNameToReportMap(IReadOnlyDictionary<string, CheckSingleDriveReport> driveNameToReportMap)
+        public CheckSingleDriveReport DeepCloneWithName(string name)
         {
-            var result = new CheckDrivesReport(
-                                 this.ShouldAlert.DeepClone(),
-                                 driveNameToReportMap,
-                                 this.SampleTimeUtc.DeepClone());
+            var result = new CheckSingleDriveReport(
+                                 name,
+                                 this.Status.DeepClone(),
+                                 this.TotalFreeSpaceInBytes.DeepClone(),
+                                 this.TotalSizeInBytes.DeepClone());
 
             return result;
         }
 
         /// <summary>
-        /// Deep clones this object with a new <see cref="SampleTimeUtc" />.
+        /// Deep clones this object with a new <see cref="TotalFreeSpaceInBytes" />.
         /// </summary>
-        /// <param name="sampleTimeUtc">The new <see cref="SampleTimeUtc" />.  This object will NOT be deep cloned; it is used as-is.</param>
-        /// <returns>New <see cref="CheckDrivesReport" /> using the specified <paramref name="sampleTimeUtc" /> for <see cref="SampleTimeUtc" /> and a deep clone of every other property.</returns>
+        /// <param name="totalFreeSpaceInBytes">The new <see cref="TotalFreeSpaceInBytes" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckSingleDriveReport" /> using the specified <paramref name="totalFreeSpaceInBytes" /> for <see cref="TotalFreeSpaceInBytes" /> and a deep clone of every other property.</returns>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
@@ -186,12 +191,46 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public CheckDrivesReport DeepCloneWithSampleTimeUtc(DateTime sampleTimeUtc)
+        public CheckSingleDriveReport DeepCloneWithTotalFreeSpaceInBytes(long totalFreeSpaceInBytes)
         {
-            var result = new CheckDrivesReport(
-                                 this.ShouldAlert.DeepClone(),
-                                 this.DriveNameToReportMap?.DeepClone(),
-                                 sampleTimeUtc);
+            var result = new CheckSingleDriveReport(
+                                 this.Name?.DeepClone(),
+                                 this.Status.DeepClone(),
+                                 totalFreeSpaceInBytes,
+                                 this.TotalSizeInBytes.DeepClone());
+
+            return result;
+        }
+
+        /// <summary>
+        /// Deep clones this object with a new <see cref="TotalSizeInBytes" />.
+        /// </summary>
+        /// <param name="totalSizeInBytes">The new <see cref="TotalSizeInBytes" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckSingleDriveReport" /> using the specified <paramref name="totalSizeInBytes" /> for <see cref="TotalSizeInBytes" /> and a deep clone of every other property.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+        [SuppressMessage("Microsoft.Naming", "CA1715:IdentifiersShouldHaveCorrectPrefix")]
+        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords")]
+        [SuppressMessage("Microsoft.Naming", "CA1719:ParameterNamesShouldNotMatchMemberNames")]
+        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames")]
+        [SuppressMessage("Microsoft.Naming", "CA1722:IdentifiersShouldNotHaveIncorrectPrefix")]
+        [SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public CheckSingleDriveReport DeepCloneWithTotalSizeInBytes(long totalSizeInBytes)
+        {
+            var result = new CheckSingleDriveReport(
+                                 this.Name?.DeepClone(),
+                                 this.Status.DeepClone(),
+                                 this.TotalFreeSpaceInBytes.DeepClone(),
+                                 totalSizeInBytes);
 
             return result;
         }
@@ -200,7 +239,7 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public override string ToString()
         {
-            var result = Invariant($"Naos.Diagnostics.Domain.CheckDrivesReport: ShouldAlert = {this.ShouldAlert.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, DriveNameToReportMap = {this.DriveNameToReportMap?.ToString() ?? "<null>"}, SampleTimeUtc = {this.SampleTimeUtc.ToString(CultureInfo.InvariantCulture) ?? "<null>"}.");
+            var result = Invariant($"Naos.Diagnostics.Domain.CheckSingleDriveReport: Status = {this.Status.ToString() ?? "<null>"}, Name = {this.Name?.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, TotalFreeSpaceInBytes = {this.TotalFreeSpaceInBytes.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, TotalSizeInBytes = {this.TotalSizeInBytes.ToString(CultureInfo.InvariantCulture) ?? "<null>"}.");
 
             return result;
         }

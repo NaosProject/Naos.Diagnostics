@@ -115,10 +115,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterDescription.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterDescription.cs">
       <Link>.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs</Link>
     </Compile>
-    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterSample.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterSample.cs">
       <Link>.recipes\Naos.Diagnostics\PerformanceCounterSample.cs</Link>
     </Compile>
     <Compile Include="..\Naos.Diagnostics.Recipes\DomainFactory.cs">
@@ -245,6 +245,7 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
+    <Compile Include="CheckStatusExtensionsTest.cs" />
     <Compile Include="CheckDrivesOpTest.cs" />
     <Compile Include="CheckDrivesOpTest.designer.cs">
       <DependentUpon>CheckDrivesOpTest.cs</DependentUpon>

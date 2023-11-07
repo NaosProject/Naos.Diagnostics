@@ -99,30 +99,33 @@
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringReadableOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\ToStringXmlDocOptions.cs" />
     <Compile Include=".recipes\OBeautifulCode.Type\TypeExtensions.cs" />
-    <Compile Include="Model\CheckDrivesReport.designer.cs">
+    <Compile Include="Logic\CheckStatusExtensions.cs" />
+    <Compile Include="Model\Classes\CheckDrivesReport.designer.cs">
       <DependentUpon>CheckDrivesReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Model\CheckSingleDriveReport.cs" />
-    <Compile Include="Model\CheckDrivesReport.cs" />
-    <Compile Include="Model\CheckSingleDriveReport.designer.cs">
+    <Compile Include="Model\Classes\CheckSingleDriveReport.designer.cs">
       <DependentUpon>CheckSingleDriveReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Enums\CheckStatus.cs" />
+    <Compile Include="Model\Interfaces\IHaveCheckStatus.cs" />
+    <Compile Include="Model\Classes\CheckSingleDriveReport.cs" />
+    <Compile Include="Model\Classes\CheckDrivesReport.cs" />
     <Compile Include="Operations\CheckDrivesOp.cs" />
     <Compile Include="Operations\CheckDrivesOp.designer.cs">
       <DependentUpon>CheckDrivesOp.cs</DependentUpon>
     </Compile>
     <Compile Include="Operations\PerformDefaultDiagnosticChecksOp.cs" />
-    <Compile Include="Model\AssemblyDetails.cs" />
-    <Compile Include="Model\PerformanceCounterSample.cs" />
-    <Compile Include="Model\PerformanceCounterDescription.cs" />
-    <Compile Include="Model\MachineDetails.cs" />
-    <Compile Include="Model\ProcessDetails.cs" />
+    <Compile Include="Model\Classes\AssemblyDetails.cs" />
+    <Compile Include="Model\Classes\PerformanceCounterSample.cs" />
+    <Compile Include="Model\Classes\PerformanceCounterDescription.cs" />
+    <Compile Include="Model\Classes\MachineDetails.cs" />
+    <Compile Include="Model\Classes\ProcessDetails.cs" />
     <Compile Include="Operations\PerformDefaultDiagnosticChecksOp.designer.cs">
       <DependentUpon>PerformDefaultDiagnosticChecksOp.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\ProjectInfo.cs" />
     <Compile Include="Exceptions\SimulatedFailureException.cs" />
-    <Compile Include="Model\OperatingSystemDetails.cs" />
+    <Compile Include="Model\Classes\OperatingSystemDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

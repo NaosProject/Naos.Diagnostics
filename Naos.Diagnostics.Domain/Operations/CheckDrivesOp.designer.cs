@@ -69,7 +69,8 @@ namespace Naos.Diagnostics.Domain
                 return false;
             }
 
-            var result = this.Threshold.IsEqualTo(other.Threshold);
+            var result = this.FailureThreshold.IsEqualTo(other.FailureThreshold)
+                      && this.WarningThreshold.IsEqualTo(other.WarningThreshold);
 
             return result;
         }
@@ -79,17 +80,18 @@ namespace Naos.Diagnostics.Domain
 
         /// <inheritdoc />
         public override int GetHashCode() => HashCodeHelper.Initialize()
-            .Hash(this.Threshold)
+            .Hash(this.FailureThreshold)
+            .Hash(this.WarningThreshold)
             .Value;
 
         /// <inheritdoc />
         public new CheckDrivesOp DeepClone() => (CheckDrivesOp)this.DeepCloneInternal();
 
         /// <summary>
-        /// Deep clones this object with a new <see cref="Threshold" />.
+        /// Deep clones this object with a new <see cref="FailureThreshold" />.
         /// </summary>
-        /// <param name="threshold">The new <see cref="Threshold" />.  This object will NOT be deep cloned; it is used as-is.</param>
-        /// <returns>New <see cref="CheckDrivesOp" /> using the specified <paramref name="threshold" /> for <see cref="Threshold" /> and a deep clone of every other property.</returns>
+        /// <param name="failureThreshold">The new <see cref="FailureThreshold" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckDrivesOp" /> using the specified <paramref name="failureThreshold" /> for <see cref="FailureThreshold" /> and a deep clone of every other property.</returns>
         [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
@@ -107,10 +109,42 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
         [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-        public CheckDrivesOp DeepCloneWithThreshold(decimal threshold)
+        public CheckDrivesOp DeepCloneWithFailureThreshold(decimal failureThreshold)
         {
             var result = new CheckDrivesOp(
-                                 threshold);
+                                 failureThreshold,
+                                 this.WarningThreshold.DeepClone());
+
+            return result;
+        }
+
+        /// <summary>
+        /// Deep clones this object with a new <see cref="WarningThreshold" />.
+        /// </summary>
+        /// <param name="warningThreshold">The new <see cref="WarningThreshold" />.  This object will NOT be deep cloned; it is used as-is.</param>
+        /// <returns>New <see cref="CheckDrivesOp" /> using the specified <paramref name="warningThreshold" /> for <see cref="WarningThreshold" /> and a deep clone of every other property.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1002:DoNotExposeGenericLists")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings")]
+        [SuppressMessage("Microsoft.Naming", "CA1702:CompoundWordsShouldBeCasedCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly")]
+        [SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
+        [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+        [SuppressMessage("Microsoft.Naming", "CA1715:IdentifiersShouldHaveCorrectPrefix")]
+        [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords")]
+        [SuppressMessage("Microsoft.Naming", "CA1719:ParameterNamesShouldNotMatchMemberNames")]
+        [SuppressMessage("Microsoft.Naming", "CA1720:IdentifiersShouldNotContainTypeNames")]
+        [SuppressMessage("Microsoft.Naming", "CA1722:IdentifiersShouldNotHaveIncorrectPrefix")]
+        [SuppressMessage("Microsoft.Naming", "CA1725:ParameterNamesShouldMatchBaseDeclaration")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms")]
+        [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
+        [SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+        public CheckDrivesOp DeepCloneWithWarningThreshold(decimal warningThreshold)
+        {
+            var result = new CheckDrivesOp(
+                                 this.FailureThreshold.DeepClone(),
+                                 warningThreshold);
 
             return result;
         }
@@ -120,7 +154,8 @@ namespace Naos.Diagnostics.Domain
         protected override OperationBase DeepCloneInternal()
         {
             var result = new CheckDrivesOp(
-                                 this.Threshold.DeepClone());
+                                 this.FailureThreshold.DeepClone(),
+                                 this.WarningThreshold.DeepClone());
 
             return result;
         }
@@ -129,7 +164,7 @@ namespace Naos.Diagnostics.Domain
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public override string ToString()
         {
-            var result = Invariant($"Naos.Diagnostics.Domain.CheckDrivesOp: Threshold = {this.Threshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}.");
+            var result = Invariant($"Naos.Diagnostics.Domain.CheckDrivesOp: FailureThreshold = {this.FailureThreshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, WarningThreshold = {this.WarningThreshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}.");
 
             return result;
         }

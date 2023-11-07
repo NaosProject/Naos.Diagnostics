@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterDescription.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterDescription.cs">
       <Link>PerformanceCounterDescription.cs</Link>
     </Compile>
-    <Compile Include="..\Naos.Diagnostics.Domain\Model\PerformanceCounterSample.cs">
+    <Compile Include="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterSample.cs">
       <Link>PerformanceCounterSample.cs</Link>
     </Compile>
     <Compile Include=".recipes\Naos.CodeAnalysis\NaosSuppressBecause.cs" />

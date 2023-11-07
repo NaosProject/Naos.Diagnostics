@@ -29,6 +29,30 @@ namespace Naos.Diagnostics.Domain.Test
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = ObcSuppressBecause.CA1810_InitializeReferenceTypeStaticFieldsInline_FieldsDeclaredInCodeGeneratedPartialTestClass)]
         static CheckDrivesReportTest()
         {
+            ConstructorArgumentValidationTestScenarios
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckDrivesReport>
+                        {
+                            Name = "constructor should throw ArgumentOutOfRangeException when parameter 'status' is 'Invalid' scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var referenceObject = A.Dummy<CheckDrivesReport>();
+
+                                                   var result = new CheckDrivesReport(
+                                                       CheckStatus.Invalid,
+                                                       referenceObject.DriveNameToReportMap,
+                                                       referenceObject.OperationUsed,
+                                                       referenceObject.SampleTimeUtc);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "status",
+                                                               },
+                        });
         }
     }
 }

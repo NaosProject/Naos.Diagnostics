@@ -12,25 +12,35 @@ namespace Naos.Diagnostics.Domain
     /// <summary>
     /// Report of a specific drive.
     /// </summary>
-    public partial class CheckSingleDriveReport : IModelViaCodeGen
+    public partial class CheckSingleDriveReport : IHaveCheckStatus, IModelViaCodeGen
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckSingleDriveReport"/> class.
         /// </summary>
         /// <param name="name">The name.</param>
+        /// <param name="status">Evaluated check status.</param>
         /// <param name="totalFreeSpaceInBytes">The total free space in bytes.</param>
         /// <param name="totalSizeInBytes">The total size in bytes.</param>
-        public CheckSingleDriveReport(string name, long totalFreeSpaceInBytes, long totalSizeInBytes)
+        public CheckSingleDriveReport(
+            string name,
+            CheckStatus status,
+            long totalFreeSpaceInBytes,
+            long totalSizeInBytes)
         {
             name.MustForArg(nameof(name)).NotBeNullNorWhiteSpace();
+            status.MustForArg(nameof(status)).NotBeEqualTo(CheckStatus.Invalid);
             totalFreeSpaceInBytes.MustForArg(nameof(totalFreeSpaceInBytes)).BeGreaterThanOrEqualTo(0L);
             totalSizeInBytes.MustForArg(nameof(totalSizeInBytes)).BeGreaterThanOrEqualTo(0L);
             totalFreeSpaceInBytes.MustForArg(nameof(totalFreeSpaceInBytes)).BeLessThanOrEqualTo(totalSizeInBytes);
 
             this.Name = name;
+            this.Status = status;
             this.TotalFreeSpaceInBytes = totalFreeSpaceInBytes;
             this.TotalSizeInBytes = totalSizeInBytes;
         }
+
+        /// <inheritdoc />
+        public CheckStatus Status { get; private set; }
 
         /// <summary>
         /// Gets the name.

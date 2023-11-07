@@ -9,8 +9,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\Naos.Diagnostics.Domain\Model\PerformanceCounterDescription.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs" />
-    <file src="..\Naos.Diagnostics.Domain\Model\PerformanceCounterSample.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterSample.cs" />
+    <file src="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterDescription.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterDescription.cs" />
+    <file src="..\Naos.Diagnostics.Domain\Model\Classes\PerformanceCounterSample.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterSample.cs" />
     <file src="PerformanceCounterHelpers.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterHelpers.cs" />
     <file src="PerformanceCounterLibrary.cs" target="content\net461\.recipes\Naos.Diagnostics\PerformanceCounterLibrary.cs" />
   </files>

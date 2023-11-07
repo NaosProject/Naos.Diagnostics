@@ -35,7 +35,7 @@ namespace Naos.Diagnostics.Domain.Test
                         new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
                         {
                             Name =
-                                "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is less than 0 scenario",
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'failureThreshold' is less than 0 scenario",
                             ConstructionFunc = () =>
                                                {
                                                    var result = new CheckDrivesOp(-1);
@@ -45,7 +45,7 @@ namespace Naos.Diagnostics.Domain.Test
                             ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
                             ExpectedExceptionMessageContains = new[]
                                                                {
-                                                                   "threshold",
+                                                                   "failureThreshold",
                                                                },
                         })
                .AddScenario(
@@ -53,7 +53,7 @@ namespace Naos.Diagnostics.Domain.Test
                         new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
                         {
                             Name =
-                                "constructor should throw ArgumentOutOfRangeException when parameter 'threshold' is greater than 1 scenario",
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'failureThreshold' is greater than 1 scenario",
                             ConstructionFunc = () =>
                                                {
                                                    var result = new CheckDrivesOp(2);
@@ -63,7 +63,43 @@ namespace Naos.Diagnostics.Domain.Test
                             ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
                             ExpectedExceptionMessageContains = new[]
                                                                {
-                                                                   "threshold",
+                                                                   "failureThreshold",
+                                                               },
+                        })
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
+                        {
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'warningThreshold' is less than 0 scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var result = new CheckDrivesOp(0.5m, -1);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "warningThreshold",
+                                                               },
+                        })
+               .AddScenario(
+                    () =>
+                        new ConstructorArgumentValidationTestScenario<CheckDrivesOp>
+                        {
+                            Name =
+                                "constructor should throw ArgumentOutOfRangeException when parameter 'warningThreshold' is greater than 1 scenario",
+                            ConstructionFunc = () =>
+                                               {
+                                                   var result = new CheckDrivesOp(0.5m, 2);
+
+                                                   return result;
+                                               },
+                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                            ExpectedExceptionMessageContains = new[]
+                                                               {
+                                                                   "warningThreshold",
                                                                },
                         });
         }

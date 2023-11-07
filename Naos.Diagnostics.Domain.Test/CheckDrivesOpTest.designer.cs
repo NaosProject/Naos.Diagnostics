@@ -47,7 +47,7 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedStringRepresentation<CheckDrivesOp>
                         {
                             SystemUnderTest = systemUnderTest,
-                            ExpectedStringRepresentation = Invariant($"Naos.Diagnostics.Domain.CheckDrivesOp: Threshold = {systemUnderTest.Threshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}."),
+                            ExpectedStringRepresentation = Invariant($"Naos.Diagnostics.Domain.CheckDrivesOp: FailureThreshold = {systemUnderTest.FailureThreshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, WarningThreshold = {systemUnderTest.WarningThreshold.ToString(CultureInfo.InvariantCulture) ?? "<null>"}."),
                         };
 
                         return result;
@@ -60,7 +60,7 @@ namespace Naos.Diagnostics.Domain.Test
             .AddScenario(() =>
                 new ConstructorPropertyAssignmentTestScenario<CheckDrivesOp>
                 {
-                    Name = "Threshold should return same 'threshold' parameter passed to constructor when getting",
+                    Name = "FailureThreshold should return same 'failureThreshold' parameter passed to constructor when getting",
                     SystemUnderTestExpectedPropertyValueFunc = () =>
                     {
                         var referenceObject = A.Dummy<CheckDrivesOp>();
@@ -68,31 +68,72 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesOp>
                         {
                             SystemUnderTest = new CheckDrivesOp(
-                                                      referenceObject.Threshold),
-                            ExpectedPropertyValue = referenceObject.Threshold,
+                                                      referenceObject.FailureThreshold,
+                                                      referenceObject.WarningThreshold),
+                            ExpectedPropertyValue = referenceObject.FailureThreshold,
                         };
 
                         return result;
                     },
-                    PropertyName = "Threshold",
+                    PropertyName = "FailureThreshold",
+                })
+            .AddScenario(() =>
+                new ConstructorPropertyAssignmentTestScenario<CheckDrivesOp>
+                {
+                    Name = "WarningThreshold should return same 'warningThreshold' parameter passed to constructor when getting",
+                    SystemUnderTestExpectedPropertyValueFunc = () =>
+                    {
+                        var referenceObject = A.Dummy<CheckDrivesOp>();
+
+                        var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesOp>
+                        {
+                            SystemUnderTest = new CheckDrivesOp(
+                                                      referenceObject.FailureThreshold,
+                                                      referenceObject.WarningThreshold),
+                            ExpectedPropertyValue = referenceObject.WarningThreshold,
+                        };
+
+                        return result;
+                    },
+                    PropertyName = "WarningThreshold",
                 });
 
         private static readonly DeepCloneWithTestScenarios<CheckDrivesOp> DeepCloneWithTestScenarios = new DeepCloneWithTestScenarios<CheckDrivesOp>()
             .AddScenario(() =>
                 new DeepCloneWithTestScenario<CheckDrivesOp>
                 {
-                    Name = "DeepCloneWithThreshold should deep clone object and replace Threshold with the provided threshold",
-                    WithPropertyName = "Threshold",
+                    Name = "DeepCloneWithFailureThreshold should deep clone object and replace FailureThreshold with the provided failureThreshold",
+                    WithPropertyName = "FailureThreshold",
                     SystemUnderTestDeepCloneWithValueFunc = () =>
                     {
                         var systemUnderTest = A.Dummy<CheckDrivesOp>();
 
-                        var referenceObject = A.Dummy<CheckDrivesOp>().ThatIs(_ => !systemUnderTest.Threshold.IsEqualTo(_.Threshold));
+                        var referenceObject = A.Dummy<CheckDrivesOp>().ThatIs(_ => !systemUnderTest.FailureThreshold.IsEqualTo(_.FailureThreshold));
 
                         var result = new SystemUnderTestDeepCloneWithValue<CheckDrivesOp>
                         {
                             SystemUnderTest = systemUnderTest,
-                            DeepCloneWithValue = referenceObject.Threshold,
+                            DeepCloneWithValue = referenceObject.FailureThreshold,
+                        };
+
+                        return result;
+                    },
+                })
+            .AddScenario(() =>
+                new DeepCloneWithTestScenario<CheckDrivesOp>
+                {
+                    Name = "DeepCloneWithWarningThreshold should deep clone object and replace WarningThreshold with the provided warningThreshold",
+                    WithPropertyName = "WarningThreshold",
+                    SystemUnderTestDeepCloneWithValueFunc = () =>
+                    {
+                        var systemUnderTest = A.Dummy<CheckDrivesOp>();
+
+                        var referenceObject = A.Dummy<CheckDrivesOp>().ThatIs(_ => !systemUnderTest.WarningThreshold.IsEqualTo(_.WarningThreshold));
+
+                        var result = new SystemUnderTestDeepCloneWithValue<CheckDrivesOp>
+                        {
+                            SystemUnderTest = systemUnderTest,
+                            DeepCloneWithValue = referenceObject.WarningThreshold,
                         };
 
                         return result;
@@ -110,12 +151,17 @@ namespace Naos.Diagnostics.Domain.Test
                     ObjectsThatAreEqualToButNotTheSameAsReferenceObject = new CheckDrivesOp[]
                     {
                         new CheckDrivesOp(
-                                ReferenceObjectForEquatableTestScenarios.Threshold),
+                                ReferenceObjectForEquatableTestScenarios.FailureThreshold,
+                                ReferenceObjectForEquatableTestScenarios.WarningThreshold),
                     },
                     ObjectsThatAreNotEqualToReferenceObject = new CheckDrivesOp[]
                     {
                         new CheckDrivesOp(
-                                A.Dummy<CheckDrivesOp>().Whose(_ => !_.Threshold.IsEqualTo(ReferenceObjectForEquatableTestScenarios.Threshold)).Threshold),
+                                A.Dummy<CheckDrivesOp>().Whose(_ => !_.FailureThreshold.IsEqualTo(ReferenceObjectForEquatableTestScenarios.FailureThreshold)).FailureThreshold,
+                                ReferenceObjectForEquatableTestScenarios.WarningThreshold),
+                        new CheckDrivesOp(
+                                ReferenceObjectForEquatableTestScenarios.FailureThreshold,
+                                A.Dummy<CheckDrivesOp>().Whose(_ => !_.WarningThreshold.IsEqualTo(ReferenceObjectForEquatableTestScenarios.WarningThreshold)).WarningThreshold),
                     },
                     ObjectsThatAreNotOfTheSameTypeAsReferenceObject = new object[]
                     {
@@ -415,7 +461,7 @@ namespace Naos.Diagnostics.Domain.Test
             [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
             public static void DeepCloneWith___Should_deep_clone_object_and_replace_the_associated_property_with_the_provided_value___When_called()
             {
-                var propertyNames = new string[] { "Threshold" };
+                var propertyNames = new string[] { "FailureThreshold", "WarningThreshold" };
 
                 var scenarios = DeepCloneWithTestScenarios.ValidateAndPrepareForTesting();
 

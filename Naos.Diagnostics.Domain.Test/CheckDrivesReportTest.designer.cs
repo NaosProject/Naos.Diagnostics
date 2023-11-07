@@ -47,7 +47,7 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedStringRepresentation<CheckDrivesReport>
                         {
                             SystemUnderTest = systemUnderTest,
-                            ExpectedStringRepresentation = Invariant($"Naos.Diagnostics.Domain.CheckDrivesReport: ShouldAlert = {systemUnderTest.ShouldAlert.ToString(CultureInfo.InvariantCulture) ?? "<null>"}, DriveNameToReportMap = {systemUnderTest.DriveNameToReportMap?.ToString() ?? "<null>"}, SampleTimeUtc = {systemUnderTest.SampleTimeUtc.ToString(CultureInfo.InvariantCulture) ?? "<null>"}."),
+                            ExpectedStringRepresentation = Invariant($"Naos.Diagnostics.Domain.CheckDrivesReport: Status = {systemUnderTest.Status.ToString() ?? "<null>"}, DriveNameToReportMap = {systemUnderTest.DriveNameToReportMap?.ToString() ?? "<null>"}, OperationUsed = {systemUnderTest.OperationUsed?.ToString() ?? "<null>"}, SampleTimeUtc = {systemUnderTest.SampleTimeUtc.ToString(CultureInfo.InvariantCulture) ?? "<null>"}."),
                         };
 
                         return result;
@@ -64,8 +64,9 @@ namespace Naos.Diagnostics.Domain.Test
                         var referenceObject = A.Dummy<CheckDrivesReport>();
 
                         var result = new CheckDrivesReport(
-                                             referenceObject.ShouldAlert,
+                                             referenceObject.Status,
                                              null,
+                                             referenceObject.OperationUsed,
                                              referenceObject.SampleTimeUtc);
 
                         return result;
@@ -82,8 +83,9 @@ namespace Naos.Diagnostics.Domain.Test
                         var referenceObject = A.Dummy<CheckDrivesReport>();
 
                         var result = new CheckDrivesReport(
-                                             referenceObject.ShouldAlert,
+                                             referenceObject.Status,
                                              new Dictionary<string, CheckSingleDriveReport>(),
+                                             referenceObject.OperationUsed,
                                              referenceObject.SampleTimeUtc);
 
                         return result;
@@ -106,21 +108,41 @@ namespace Naos.Diagnostics.Domain.Test
                         dictionaryWithNullValue[randomKey] = null;
 
                         var result = new CheckDrivesReport(
-                                             referenceObject.ShouldAlert,
+                                             referenceObject.Status,
                                              dictionaryWithNullValue,
+                                             referenceObject.OperationUsed,
                                              referenceObject.SampleTimeUtc);
 
                         return result;
                     },
                     ExpectedExceptionType = typeof(ArgumentException),
                     ExpectedExceptionMessageContains = new[] { "driveNameToReportMap", "contains at least one key-value pair with a null value", },
+                })
+            .AddScenario(() =>
+                new ConstructorArgumentValidationTestScenario<CheckDrivesReport>
+                {
+                    Name = "constructor should throw ArgumentNullException when parameter 'operationUsed' is null scenario",
+                    ConstructionFunc = () =>
+                    {
+                        var referenceObject = A.Dummy<CheckDrivesReport>();
+
+                        var result = new CheckDrivesReport(
+                                             referenceObject.Status,
+                                             referenceObject.DriveNameToReportMap,
+                                             null,
+                                             referenceObject.SampleTimeUtc);
+
+                        return result;
+                    },
+                    ExpectedExceptionType = typeof(ArgumentNullException),
+                    ExpectedExceptionMessageContains = new[] { "operationUsed", },
                 });
 
         private static readonly ConstructorPropertyAssignmentTestScenarios<CheckDrivesReport> ConstructorPropertyAssignmentTestScenarios = new ConstructorPropertyAssignmentTestScenarios<CheckDrivesReport>()
             .AddScenario(() =>
                 new ConstructorPropertyAssignmentTestScenario<CheckDrivesReport>
                 {
-                    Name = "ShouldAlert should return same 'shouldAlert' parameter passed to constructor when getting",
+                    Name = "Status should return same 'status' parameter passed to constructor when getting",
                     SystemUnderTestExpectedPropertyValueFunc = () =>
                     {
                         var referenceObject = A.Dummy<CheckDrivesReport>();
@@ -128,15 +150,16 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesReport>
                         {
                             SystemUnderTest = new CheckDrivesReport(
-                                                      referenceObject.ShouldAlert,
+                                                      referenceObject.Status,
                                                       referenceObject.DriveNameToReportMap,
+                                                      referenceObject.OperationUsed,
                                                       referenceObject.SampleTimeUtc),
-                            ExpectedPropertyValue = referenceObject.ShouldAlert,
+                            ExpectedPropertyValue = referenceObject.Status,
                         };
 
                         return result;
                     },
-                    PropertyName = "ShouldAlert",
+                    PropertyName = "Status",
                 })
             .AddScenario(() =>
                 new ConstructorPropertyAssignmentTestScenario<CheckDrivesReport>
@@ -149,8 +172,9 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesReport>
                         {
                             SystemUnderTest = new CheckDrivesReport(
-                                                      referenceObject.ShouldAlert,
+                                                      referenceObject.Status,
                                                       referenceObject.DriveNameToReportMap,
+                                                      referenceObject.OperationUsed,
                                                       referenceObject.SampleTimeUtc),
                             ExpectedPropertyValue = referenceObject.DriveNameToReportMap,
                         };
@@ -158,6 +182,28 @@ namespace Naos.Diagnostics.Domain.Test
                         return result;
                     },
                     PropertyName = "DriveNameToReportMap",
+                })
+            .AddScenario(() =>
+                new ConstructorPropertyAssignmentTestScenario<CheckDrivesReport>
+                {
+                    Name = "OperationUsed should return same 'operationUsed' parameter passed to constructor when getting",
+                    SystemUnderTestExpectedPropertyValueFunc = () =>
+                    {
+                        var referenceObject = A.Dummy<CheckDrivesReport>();
+
+                        var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesReport>
+                        {
+                            SystemUnderTest = new CheckDrivesReport(
+                                                      referenceObject.Status,
+                                                      referenceObject.DriveNameToReportMap,
+                                                      referenceObject.OperationUsed,
+                                                      referenceObject.SampleTimeUtc),
+                            ExpectedPropertyValue = referenceObject.OperationUsed,
+                        };
+
+                        return result;
+                    },
+                    PropertyName = "OperationUsed",
                 })
             .AddScenario(() =>
                 new ConstructorPropertyAssignmentTestScenario<CheckDrivesReport>
@@ -170,8 +216,9 @@ namespace Naos.Diagnostics.Domain.Test
                         var result = new SystemUnderTestExpectedPropertyValue<CheckDrivesReport>
                         {
                             SystemUnderTest = new CheckDrivesReport(
-                                                      referenceObject.ShouldAlert,
+                                                      referenceObject.Status,
                                                       referenceObject.DriveNameToReportMap,
+                                                      referenceObject.OperationUsed,
                                                       referenceObject.SampleTimeUtc),
                             ExpectedPropertyValue = referenceObject.SampleTimeUtc,
                         };
@@ -185,18 +232,18 @@ namespace Naos.Diagnostics.Domain.Test
             .AddScenario(() =>
                 new DeepCloneWithTestScenario<CheckDrivesReport>
                 {
-                    Name = "DeepCloneWithShouldAlert should deep clone object and replace ShouldAlert with the provided shouldAlert",
-                    WithPropertyName = "ShouldAlert",
+                    Name = "DeepCloneWithStatus should deep clone object and replace Status with the provided status",
+                    WithPropertyName = "Status",
                     SystemUnderTestDeepCloneWithValueFunc = () =>
                     {
                         var systemUnderTest = A.Dummy<CheckDrivesReport>();
 
-                        var referenceObject = A.Dummy<CheckDrivesReport>().ThatIs(_ => !systemUnderTest.ShouldAlert.IsEqualTo(_.ShouldAlert));
+                        var referenceObject = A.Dummy<CheckDrivesReport>().ThatIs(_ => !systemUnderTest.Status.IsEqualTo(_.Status));
 
                         var result = new SystemUnderTestDeepCloneWithValue<CheckDrivesReport>
                         {
                             SystemUnderTest = systemUnderTest,
-                            DeepCloneWithValue = referenceObject.ShouldAlert,
+                            DeepCloneWithValue = referenceObject.Status,
                         };
 
                         return result;
@@ -217,6 +264,26 @@ namespace Naos.Diagnostics.Domain.Test
                         {
                             SystemUnderTest = systemUnderTest,
                             DeepCloneWithValue = referenceObject.DriveNameToReportMap,
+                        };
+
+                        return result;
+                    },
+                })
+            .AddScenario(() =>
+                new DeepCloneWithTestScenario<CheckDrivesReport>
+                {
+                    Name = "DeepCloneWithOperationUsed should deep clone object and replace OperationUsed with the provided operationUsed",
+                    WithPropertyName = "OperationUsed",
+                    SystemUnderTestDeepCloneWithValueFunc = () =>
+                    {
+                        var systemUnderTest = A.Dummy<CheckDrivesReport>();
+
+                        var referenceObject = A.Dummy<CheckDrivesReport>().ThatIs(_ => !systemUnderTest.OperationUsed.IsEqualTo(_.OperationUsed));
+
+                        var result = new SystemUnderTestDeepCloneWithValue<CheckDrivesReport>
+                        {
+                            SystemUnderTest = systemUnderTest,
+                            DeepCloneWithValue = referenceObject.OperationUsed,
                         };
 
                         return result;
@@ -254,23 +321,32 @@ namespace Naos.Diagnostics.Domain.Test
                     ObjectsThatAreEqualToButNotTheSameAsReferenceObject = new CheckDrivesReport[]
                     {
                         new CheckDrivesReport(
-                                ReferenceObjectForEquatableTestScenarios.ShouldAlert,
+                                ReferenceObjectForEquatableTestScenarios.Status,
                                 ReferenceObjectForEquatableTestScenarios.DriveNameToReportMap,
+                                ReferenceObjectForEquatableTestScenarios.OperationUsed,
                                 ReferenceObjectForEquatableTestScenarios.SampleTimeUtc),
                     },
                     ObjectsThatAreNotEqualToReferenceObject = new CheckDrivesReport[]
                     {
                         new CheckDrivesReport(
-                                A.Dummy<CheckDrivesReport>().Whose(_ => !_.ShouldAlert.IsEqualTo(ReferenceObjectForEquatableTestScenarios.ShouldAlert)).ShouldAlert,
+                                A.Dummy<CheckDrivesReport>().Whose(_ => !_.Status.IsEqualTo(ReferenceObjectForEquatableTestScenarios.Status)).Status,
                                 ReferenceObjectForEquatableTestScenarios.DriveNameToReportMap,
+                                ReferenceObjectForEquatableTestScenarios.OperationUsed,
                                 ReferenceObjectForEquatableTestScenarios.SampleTimeUtc),
                         new CheckDrivesReport(
-                                ReferenceObjectForEquatableTestScenarios.ShouldAlert,
+                                ReferenceObjectForEquatableTestScenarios.Status,
                                 A.Dummy<CheckDrivesReport>().Whose(_ => !_.DriveNameToReportMap.IsEqualTo(ReferenceObjectForEquatableTestScenarios.DriveNameToReportMap)).DriveNameToReportMap,
+                                ReferenceObjectForEquatableTestScenarios.OperationUsed,
                                 ReferenceObjectForEquatableTestScenarios.SampleTimeUtc),
                         new CheckDrivesReport(
-                                ReferenceObjectForEquatableTestScenarios.ShouldAlert,
+                                ReferenceObjectForEquatableTestScenarios.Status,
                                 ReferenceObjectForEquatableTestScenarios.DriveNameToReportMap,
+                                A.Dummy<CheckDrivesReport>().Whose(_ => !_.OperationUsed.IsEqualTo(ReferenceObjectForEquatableTestScenarios.OperationUsed)).OperationUsed,
+                                ReferenceObjectForEquatableTestScenarios.SampleTimeUtc),
+                        new CheckDrivesReport(
+                                ReferenceObjectForEquatableTestScenarios.Status,
+                                ReferenceObjectForEquatableTestScenarios.DriveNameToReportMap,
+                                ReferenceObjectForEquatableTestScenarios.OperationUsed,
                                 A.Dummy<CheckDrivesReport>().Whose(_ => !_.SampleTimeUtc.IsEqualTo(ReferenceObjectForEquatableTestScenarios.SampleTimeUtc)).SampleTimeUtc),
                     },
                     ObjectsThatAreNotOfTheSameTypeAsReferenceObject = new object[]
@@ -564,6 +640,18 @@ namespace Naos.Diagnostics.Domain.Test
                     // a deep clone of a value type object is the same object.
                     actual.DriveNameToReportMap.AsTest().Must().NotBeSameReferenceAs(systemUnderTest.DriveNameToReportMap);
                 }
+
+                if (systemUnderTest.OperationUsed == null)
+                {
+                    actual.OperationUsed.AsTest().Must().BeNull();
+                }
+                else if (!actual.OperationUsed.GetType().IsValueType)
+                {
+                    // When the declared type is a reference type, we still have to check the runtime type.
+                    // The object could be a boxed value type, which will fail this asseration because
+                    // a deep clone of a value type object is the same object.
+                    actual.OperationUsed.AsTest().Must().NotBeSameReferenceAs(systemUnderTest.OperationUsed);
+                }
             }
 
             [Fact]
@@ -582,7 +670,7 @@ namespace Naos.Diagnostics.Domain.Test
             [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly")]
             public static void DeepCloneWith___Should_deep_clone_object_and_replace_the_associated_property_with_the_provided_value___When_called()
             {
-                var propertyNames = new string[] { "ShouldAlert", "DriveNameToReportMap", "SampleTimeUtc" };
+                var propertyNames = new string[] { "Status", "DriveNameToReportMap", "OperationUsed", "SampleTimeUtc" };
 
                 var scenarios = DeepCloneWithTestScenarios.ValidateAndPrepareForTesting();
 

@@ -17,18 +17,27 @@ namespace Naos.Diagnostics.Domain
         /// <summary>
         /// Initializes a new instance of the <see cref="CheckDrivesOp"/> class.
         /// </summary>
-        /// <param name="threshold">The threshold percentage (as decimal) of free space to alert on; e.g. 0.2 will alert when free space is less than 20%.</param>
+        /// <param name="failureThreshold">The threshold percentage (as decimal) of free space to consider a failure; e.g. 0.2 will alert when free space is less than 20%.</param>
+        /// <param name="warningThreshold">The optional threshold percentage (as decimal) of free space to consider a warning; e.g. 0.2 will alert when free space is less than 20%; DEFAULT is 0.</param>
         public CheckDrivesOp(
-            decimal threshold)
+            decimal failureThreshold,
+            decimal warningThreshold = 0)
         {
-            threshold.MustForArg(nameof(threshold)).BeInRange(0m, 1m);
+            failureThreshold.MustForArg(nameof(failureThreshold)).BeInRange(0m, 1m);
+            warningThreshold.MustForArg(nameof(warningThreshold)).BeInRange(0m, 1m);
 
-            this.Threshold = threshold;
+            this.FailureThreshold = failureThreshold;
+            this.WarningThreshold = warningThreshold;
         }
 
         /// <summary>
-        /// Gets the threshold percentage (as decimal) of free space to alert on; e.g. 0.2 will alert when free space is less than 20%..
+        /// Gets the threshold percentage (as decimal) of free space to consider a failure; e.g. 0.2 will alert when free space is less than 20%..
         /// </summary>
-        public decimal Threshold { get; private set; }
+        public decimal FailureThreshold { get; private set; }
+
+        /// <summary>
+        /// Gets the threshold percentage (as decimal) of free space to consider a warning; e.g. 0.2 will alert when free space is less than 20%..
+        /// </summary>
+        public decimal WarningThreshold { get; private set; }
     }
 }

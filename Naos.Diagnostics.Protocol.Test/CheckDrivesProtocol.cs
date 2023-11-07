@@ -28,7 +28,7 @@ namespace Naos.Diagnostics.Protocol.Test
             var report = protocol.Execute(operation);
 
             // Assert
-            report.ShouldAlert.MustForTest().BeTrue();
+            report.Status.MustForTest().BeEqualTo(CheckStatus.Failure);
         }
 
         [Fact]
@@ -42,7 +42,21 @@ namespace Naos.Diagnostics.Protocol.Test
             var report = protocol.Execute(operation);
 
             // Assert
-            report.ShouldAlert.MustForTest().BeFalse();
+            report.Status.MustForTest().BeEqualTo(CheckStatus.Success);
+        }
+
+        [Fact]
+        public static void Execute___Creates_correct_report_without_alert___When_threshold_set_low_with_warningThreshold()
+        {
+            // Arrange
+            var operation = new CheckDrivesOp(.00001m, .99999m);
+            var protocol = new CheckDrivesProtocol(() => DateTime.UtcNow);
+
+            // Act
+            var report = protocol.Execute(operation);
+
+            // Assert
+            report.Status.MustForTest().BeEqualTo(CheckStatus.Warning);
         }
     }
 }
