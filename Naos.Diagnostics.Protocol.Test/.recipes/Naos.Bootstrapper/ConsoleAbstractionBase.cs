@@ -67,6 +67,14 @@ namespace Naos.Bootstrapper
         /// </summary>
         public void PerformEntryPointPreChecks()
         {
+            if (this.RequiresElevatedPrivileges)
+            {
+                if (!ProcessHelpers.IsCurrentlyRunningAsAdmin())
+                {
+                    throw new NotSupportedException("This application requires elevated privileges, please run as administrator.");
+                }
+            }
+
             this.CustomPerformEntryPointPreChecks();
         }
 
@@ -305,6 +313,37 @@ namespace Naos.Bootstrapper
                 => PrefixAnnounce(_, announcer, padding, defaultPrefix);
 
             return ResultAction;
+        }
+
+        /// <summary>
+        /// Build and write standard telemetry items to  <see cref="Its.Log" />.
+        /// </summary>
+        protected static void WriteStandardTelemetry()
+        {
+            /*---------------------------------------------------------------------------*
+             * Write telemetry:  Log telemetry general records                           *
+             *---------------------------------------------------------------------------*/
+            var dateTimeOfSampleInUtc = DateTime.UtcNow;
+            var machineDetails = DomainFactory.CreateMachineDetails();
+            var processDetails = DomainFactory.CreateProcessDetails();
+
+            var processDirectory = Path.GetDirectoryName(processDetails.FilePath) ?? throw new InvalidOperationException("Could not get directory from process file path: " + processDetails.FilePath);
+            var processSiblingAssemblies = Directory.GetFiles(processDirectory, "*", SearchOption.AllDirectories)
+                .Where(_ => _.ToLowerInvariant().EndsWith(".exe") || _.ToLowerInvariant().EndsWith(".dll")).Select(_ =>
+                {
+                    try
+                    {
+                        return AssemblyDetails.CreateFromFile(_);
+                    }
+                    catch (Exception)
+                    {
+                        return new AssemblyDetails(Path.ChangeExtension(Path.GetFileName(_), string.Empty), Version.Parse("1.0.0.0").ToString(), _, "UNKNOWN");
+                    }
+                })
+                .ToList();
+
+            var diagnosticsTelemetry = new DiagnosticsTelemetry(dateTimeOfSampleInUtc, machineDetails, processDetails, processSiblingAssemblies);
+            Its.Log.Instrumentation.Log.Write(() => diagnosticsTelemetry);
         }
 
         /// <summary>
