@@ -31,102 +31,137 @@ namespace Naos.Diagnostics.Domain.Test
         static CheckSingleDriveReportTest()
         {
             ConstructorArgumentValidationTestScenarios
-               .AddScenario(
-                    () =>
-                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                .RemoveAllScenarios()
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                    {
+                        Name = "constructor should throw ArgumentNullException when parameter 'name' is null scenario",
+                        ConstructionFunc = () =>
                         {
-                            Name =
-                                "constructor should throw ArgumentException when parameter 'status' is 'Invalid' scenario",
-                            ConstructionFunc = () =>
-                                               {
-                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+                            var referenceObject = A.Dummy<CheckSingleDriveReport>();
 
-                                                   var result = new CheckSingleDriveReport(
-                                                       referenceObject.Name,
-                                                       CheckStatus.Invalid,
-                                                       referenceObject.TotalSizeInBytes,
-                                                       referenceObject.TotalSizeInBytes);
+                            var result = new CheckSingleDriveReport(
+                                                 null,
+                                                 referenceObject.Status,
+                                                 referenceObject.TotalFreeSpaceInBytes,
+                                                 referenceObject.TotalSizeInBytes);
 
-                                                   return result;
-                                               },
-                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
-                            ExpectedExceptionMessageContains = new[]
-                                                               {
-                                                                   "status",
-                                                               },
-                        })
-               .AddScenario(
-                    () =>
-                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                            return result;
+                        },
+                        ExpectedExceptionType = typeof(ArgumentNullException),
+                        ExpectedExceptionMessageContains = new[] { "name", },
+                    })
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                    {
+                        Name = "constructor should throw ArgumentException when parameter 'name' is white space scenario",
+                        ConstructionFunc = () =>
                         {
-                            Name =
-                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is bigger than 'totalSizeInBytes' scenario",
-                            ConstructionFunc = () =>
-                                               {
-                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+                            var referenceObject = A.Dummy<CheckSingleDriveReport>();
 
-                                                   var result = new CheckSingleDriveReport(
-                                                       referenceObject.Name,
-                                                       referenceObject.Status,
-                                                       referenceObject.TotalSizeInBytes + 1,
-                                                       referenceObject.TotalSizeInBytes);
+                            var result = new CheckSingleDriveReport(
+                                                 Invariant($"  {Environment.NewLine}  "),
+                                                 referenceObject.Status,
+                                                 referenceObject.TotalFreeSpaceInBytes,
+                                                 referenceObject.TotalSizeInBytes);
 
-                                                   return result;
-                                               },
-                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
-                            ExpectedExceptionMessageContains = new[]
-                                                               {
-                                                                   "totalFreeSpaceInBytes",
-                                                               },
-                        })
-               .AddScenario(
-                    () =>
-                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
-                        {
-                            Name =
-                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is less than zero scenario",
-                            ConstructionFunc = () =>
-                                               {
-                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+                            return result;
+                        },
+                        ExpectedExceptionType = typeof(ArgumentException),
+                        ExpectedExceptionMessageContains = new[] { "name", "white space", },
+                    })
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                            {
+                                Name =
+                                    "constructor should throw ArgumentException when parameter 'status' is 'Invalid' scenario",
+                                ConstructionFunc = () =>
+                                                   {
+                                                       var referenceObject = A.Dummy<CheckSingleDriveReport>();
 
-                                                   var result = new CheckSingleDriveReport(
-                                                       referenceObject.Name,
-                                                       referenceObject.Status,
-                                                       -1,
-                                                       referenceObject.TotalSizeInBytes);
+                                                       var result = new CheckSingleDriveReport(
+                                                           referenceObject.Name,
+                                                           CheckStatus.Invalid,
+                                                           referenceObject.TotalSizeInBytes,
+                                                           referenceObject.TotalSizeInBytes);
 
-                                                   return result;
-                                               },
-                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
-                            ExpectedExceptionMessageContains = new[]
-                                                               {
-                                                                   "totalFreeSpaceInBytes",
-                                                               },
-                        })
-               .AddScenario(
-                    () =>
-                        new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
-                        {
-                            Name =
-                                "constructor should throw ArgumentOutOfRangeException when parameter 'totalSizeInBytes' is less than zero scenario",
-                            ConstructionFunc = () =>
-                                               {
-                                                   var referenceObject = A.Dummy<CheckSingleDriveReport>();
+                                                       return result;
+                                                   },
+                                ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                                ExpectedExceptionMessageContains = new[]
+                                                                   {
+                                                                       "status",
+                                                                   },
+                            })
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                    {
+                        Name =
+                            "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is bigger than 'totalSizeInBytes' scenario",
+                        ConstructionFunc = () =>
+                                            {
+                                                var referenceObject = A.Dummy<CheckSingleDriveReport>();
 
-                                                   var result = new CheckSingleDriveReport(
-                                                       referenceObject.Name,
-                                                       referenceObject.Status,
-                                                       referenceObject.TotalFreeSpaceInBytes,
-                                                       -1);
+                                                var result = new CheckSingleDriveReport(
+                                                    referenceObject.Name,
+                                                    referenceObject.Status,
+                                                    referenceObject.TotalSizeInBytes + 1,
+                                                    referenceObject.TotalSizeInBytes);
 
-                                                   return result;
-                                               },
-                            ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
-                            ExpectedExceptionMessageContains = new[]
-                                                               {
-                                                                   "totalSizeInBytes",
-                                                               },
-                        });
+                                                return result;
+                                            },
+                        ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                        ExpectedExceptionMessageContains = new[]
+                                                            {
+                                                                "totalFreeSpaceInBytes",
+                                                            },
+                    })
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                    {
+                        Name =
+                            "constructor should throw ArgumentOutOfRangeException when parameter 'totalFreeSpaceInBytes' is less than zero scenario",
+                        ConstructionFunc = () =>
+                                            {
+                                                var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                var result = new CheckSingleDriveReport(
+                                                    referenceObject.Name,
+                                                    referenceObject.Status,
+                                                    -1,
+                                                    referenceObject.TotalSizeInBytes);
+
+                                                return result;
+                                            },
+                        ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                        ExpectedExceptionMessageContains = new[]
+                                                            {
+                                                                "totalFreeSpaceInBytes",
+                                                            },
+                    })
+                .AddScenario(() =>
+                    new ConstructorArgumentValidationTestScenario<CheckSingleDriveReport>
+                    {
+                        Name =
+                            "constructor should throw ArgumentOutOfRangeException when parameter 'totalSizeInBytes' is less than zero scenario",
+                        ConstructionFunc = () =>
+                                            {
+                                                var referenceObject = A.Dummy<CheckSingleDriveReport>();
+
+                                                var result = new CheckSingleDriveReport(
+                                                    referenceObject.Name,
+                                                    referenceObject.Status,
+                                                    referenceObject.TotalFreeSpaceInBytes,
+                                                    -1);
+
+                                                return result;
+                                            },
+                        ExpectedExceptionType = typeof(ArgumentOutOfRangeException),
+                        ExpectedExceptionMessageContains = new[]
+                                                            {
+                                                                "totalSizeInBytes",
+                                                            },
+                    });
 
             EquatableTestScenarios
                .RemoveAllScenarios()
